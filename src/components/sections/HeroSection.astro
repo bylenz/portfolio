@@ -1,0 +1,124 @@
+---
+import { heroStats, marqueeItems } from "../../data/navigation";
+---
+
+<section id="hero" class="hero">
+  <!-- Grid background -->
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="hero-inner">
+      <!-- Left: Main content -->
+      <div class="hero-content">
+        <!-- Status badge -->
+        <div class="status-badge observe" role="status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Available for new projects</span>
+        </div>
+
+        <!-- Main headline -->
+        <div class="headline-wrap observe" style="animation-delay: 0.1s">
+          <h1 class="hero-title">
+            <span class="title-line">AI</span>
+            <span class="title-line accent-yellow">ENGINEER</span>
+            <span class="title-line title-line--sm">& Architect</span>
+          </h1>
+        </div>
+
+        <!-- Description -->
+        <p class="hero-desc observe" style="animation-delay: 0.2s">
+          No soy solo un dev — soy el <strong>arquitecto</strong> que orquesta
+          IA para construir más rápido, más inteligente y con más impacto.
+          React · Next.js · LangChain · LangGraph · FastAPI.
+        </p>
+
+        <!-- CTA buttons -->
+        <div class="hero-cta observe" style="animation-delay: 0.3s">
+          <a href="#projects" class="nb-btn">
+            Ver Proyectos &rarr;
+          </a>
+          <a href="#contact" class="nb-btn nb-btn-outline">
+            Hablemos
+          </a>
+        </div>
+
+        <!-- Stats row -->
+        <div class="hero-stats observe" style="animation-delay: 0.4s" role="list" aria-label="Estadísticas">
+          {heroStats.map((stat, i) => (
+            <>
+              {i > 0 && <div class="stat-divider" aria-hidden="true"></div>}
+              <div class="stat" role="listitem">
+                <span class="stat-num">{stat.value}</span>
+                <span class="stat-label">{stat.label}</span>
+              </div>
+            </>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right: Visual card -->
+      <div class="hero-visual observe" style="animation-delay: 0.2s" aria-hidden="true">
+        <div class="visual-card nb-card">
+          <!-- Terminal-style header -->
+          <div class="term-header">
+            <div class="term-dots">
+              <span style="background:#ff5f57"></span>
+              <span style="background:#ffbd2e"></span>
+              <span style="background:#28c840"></span>
+            </div>
+            <span class="term-title">profile.json</span>
+          </div>
+          <div class="term-body">
+            <pre class="code-block"><code><span class="c-bracket">{"{"}</span>
+  <span class="c-key">"name"</span><span class="c-colon">:</span> <span class="c-str">"Junior AI Engineer"</span><span class="c-comma">,</span>
+  <span class="c-key">"role"</span><span class="c-colon">:</span> <span class="c-str">"AI Architect & Orchestrator"</span><span class="c-comma">,</span>
+  <span class="c-key">"superpower"</span><span class="c-colon">:</span> <span class="c-str">"AI-powered dev flow"</span><span class="c-comma">,</span>
+  <span class="c-key">"frontend"</span><span class="c-colon">:</span> <span class="c-arr">[</span>
+    <span class="c-str">"React"</span><span class="c-comma">,</span> <span class="c-str">"Next.js"</span>
+  <span class="c-arr">]</span><span class="c-comma">,</span>
+  <span class="c-key">"backend"</span><span class="c-colon">:</span> <span class="c-arr">[</span>
+    <span class="c-str">"NestJS"</span><span class="c-comma">,</span> <span class="c-str">"FastAPI"</span>
+  <span class="c-arr">]</span><span class="c-comma">,</span>
+  <span class="c-key">"ai_libs"</span><span class="c-colon">:</span> <span class="c-arr">[</span>
+    <span class="c-str">"LangChain"</span><span class="c-comma">,</span>
+    <span class="c-str">"LangGraph"</span><span class="c-comma">,</span>
+    <span class="c-str">"LlamaIndex"</span><span class="c-comma">,</span>
+    <span class="c-str">"PydanticAI"</span>
+  <span class="c-arr">]</span><span class="c-comma">,</span>
+  <span class="c-key">"status"</span><span class="c-colon">:</span> <span class="c-bool">true</span>
+<span class="c-bracket">{"}"}</span></code></pre>
+          </div>
+        </div>
+
+        <!-- Floating tags -->
+        <div class="float-tag float-tag--1">
+          <span>🤖 AI-First</span>
+        </div>
+        <div class="float-tag float-tag--2">
+          <span>⚡ Full-Stack</span>
+        </div>
+        <div class="float-tag float-tag--3">
+          <span>🏗️ Architect</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Marquee tech bar -->
+  <div class="tech-marquee" aria-hidden="true">
+    <div class="marquee-track">
+      {/* First set */}
+      {marqueeItems.map((item) => (
+        <span class="marquee-item">
+          <span class="marquee-dot">◆</span> {item.label}
+        </span>
+      ))}
+      {/* Duplicate set for seamless loop */}
+      {marqueeItems.map((item) => (
+        <span class="marquee-item">
+          <span class="marquee-dot">◆</span> {item.label}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,119 @@
+---
+import { experiences, currentlyLearning } from '../../data/experience';
+---
+
+<section id="experience" class="section exp-section">
+  <div class="container">
+    <div class="exp-grid">
+      {/* Left: Experience timeline */}
+      <div class="exp-left">
+        <div class="section-header observe">
+          <span class="section-tag">04 — Experience</span>
+          <h2 class="section-title">Mi camino<br />hasta aquí.</h2>
+        </div>
+
+        <div class="timeline">
+          {experiences.map((exp, index) => {
+            const isLast = index === experiences.length - 1;
+            const delay = index * 0.15;
+
+            return (
+              <div class="timeline-item observe" style={`animation-delay: ${delay}s`}>
+                <div class="timeline-line" aria-hidden="true">
+                  <div
+                    class="timeline-dot"
+                    style={`background: ${exp.color}; border-color: ${exp.color};`}
+                  />
+                  {!isLast && <div class="timeline-connector" />}
+                </div>
+                <div class="timeline-content">
+                  <div class="exp-header">
+                    <div>
+                      <span class="exp-period">{exp.period}</span>
+                      <h3 class="exp-role">{exp.role}</h3>
+                      <span class="exp-company">{exp.company}</span>
+                    </div>
+                    <span class="exp-type" style={`background: ${exp.color};`}>
+                      {exp.type}
+                    </span>
+                  </div>
+                  <p class="exp-desc">{exp.description}</p>
+                  <ul class="exp-achievements">
+                    {exp.achievements.map((achievement) => (
+                      <li>
+                        <span
+                          class="achievement-bullet"
+                          style={`background: ${exp.color};`}
+                          aria-hidden="true"
+                        />
+                        {achievement}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Right: Value prop + CTA */}
+      <div class="exp-right">
+        {/* Junior label card */}
+        <div class="junior-card nb-card observe">
+          <div class="junior-header">
+            <span class="junior-badge">Junior</span>
+            <span class="junior-but">BUT...</span>
+          </div>
+          <h3>Lo que me diferencia</h3>
+          <ul class="junior-list">
+            <li>
+              <span aria-hidden="true">🏗️</span>
+              <div>
+                <strong>Pensamiento de arquitecto</strong>
+                <p>Diseño sistemas escalables, no solo features</p>
+              </div>
+            </li>
+            <li>
+              <span aria-hidden="true">🤖</span>
+              <div>
+                <strong>AI-augmented workflow</strong>
+                <p>Entrego como senior con flow de IA</p>
+              </div>
+            </li>
+            <li>
+              <span aria-hidden="true">🚀</span>
+              <div>
+                <strong>Proyectos reales en producción</strong>
+                <p>No solo side projects — clientes reales</p>
+              </div>
+            </li>
+            <li>
+              <span aria-hidden="true">📈</span>
+              <div>
+                <strong>Crecimiento acelerado</strong>
+                <p>En 1 año hice lo que otros tardan 3</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        {/* Learning now */}
+        <div class="learning-card nb-card observe" style="animation-delay: 0.2s">
+          <div class="learning-label">
+            <span class="pulse-dot" aria-hidden="true" />
+            Aprendiendo ahora
+          </div>
+          <div class="learning-items">
+            {currentlyLearning.map((item) => (
+              <div class="learning-item">
+                <span class="learning-arrow" aria-hidden="true">→</span>
+                <span>{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

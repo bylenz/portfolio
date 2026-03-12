@@ -1,0 +1,13 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const classes = ["pill", className].filter(Boolean).join(" ");
+---
+
+<span class={classes}>
+  <slot />
+</span>

@@ -1,0 +1,35 @@
+---
+import "../styles/global.css";
+import CustomCursor from "../components/interactive/CustomCursor.astro";
+import SiteScripts from "../components/interactive/SiteScripts.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "AI Engineer — Arquitecto de soluciones potenciadas por IA. React, Next.js, LangChain, LangGraph y más.",
+} = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-to-content">Saltar al contenido</a>
+    <slot />
+    <CustomCursor />
+    <SiteScripts />
+  </body>
+</html>

@@ -1,0 +1,30 @@
+---
+interface Props {
+  variant?: "primary" | "outline" | "dark";
+  href?: string;
+  class?: string;
+}
+
+const { variant = "primary", href, class: className } = Astro.props;
+
+const variantClasses: Record<string, string> = {
+  primary: "nb-btn",
+  outline: "nb-btn nb-btn-outline",
+  dark: "nb-btn nb-btn-dark",
+};
+
+const classes = [variantClasses[variant], className].filter(Boolean).join(" ");
+const Tag = href ? "a" : "button";
+---
+
+{
+  href ? (
+    <a href={href} class={classes}>
+      <slot />
+    </a>
+  ) : (
+    <button class={classes}>
+      <slot />
+    </button>
+  )
+}

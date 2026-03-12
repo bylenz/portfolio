@@ -1,0 +1,69 @@
+---
+import { projects } from '../../data/projects';
+---
+
+<section id="projects" class="section">
+  <div class="container">
+    <div class="section-header observe">
+      <span class="section-tag">03 — Projects</span>
+      <h2 class="section-title">
+        Lo que he<br /><span style="color: var(--coral)">construido.</span>
+      </h2>
+    </div>
+
+    <div class="projects-grid">
+      {projects.map((project, index) => {
+        const isFirstRow = index < 3;
+        const rowIndex = index % 3;
+        const delay = isFirstRow ? rowIndex * 0.1 : (rowIndex) * 0.1;
+        const featuredClass = project.featured ? 'project-card--featured' : '';
+
+        return (
+          <article
+            class={`project-card nb-card observe ${featuredClass}`}
+            style={`animation-delay: ${delay}s; --accent: ${project.accentColor};`}
+          >
+            {/* Top bar */}
+            <div class="project-top" style={`background: ${project.accentColor};`}>
+              <span class="project-num">{project.number}</span>
+              <span class="project-status">{project.status}</span>
+            </div>
+            <div class="project-body">
+              <div class="project-emoji" aria-hidden="true">{project.emoji}</div>
+              <h3 class="project-title">{project.title}</h3>
+              <p class="project-subtitle">{project.subtitle}</p>
+              <p class="project-desc">{project.description}</p>
+              <div class="project-highlights">
+                {project.highlights.map((highlight) => (
+                  <div class="highlight-item">
+                    <span class="highlight-check" aria-hidden="true">✓</span>
+                    <span>{highlight}</span>
+                  </div>
+                ))}
+              </div>
+              <div class="project-tags">
+                {project.tags.map((tag) => (
+                  <span class="project-tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+            <div class="project-footer">
+              <button
+                class="nb-btn nb-btn-outline project-btn"
+                style="font-size: 12px; padding: 10px 20px;"
+              >
+                Ver Proyecto →
+              </button>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    {/* CTA */}
+    <div class="projects-cta observe">
+      <p>¿Tienes un proyecto en mente?</p>
+      <a href="#contact" class="nb-btn nb-btn-dark">Hablemos →</a>
+    </div>
+  </div>
+</section>

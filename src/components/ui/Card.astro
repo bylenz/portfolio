@@ -1,0 +1,15 @@
+---
+interface Props {
+  class?: string;
+  accentColor?: string;
+}
+
+const { class: className, accentColor } = Astro.props;
+
+const classes = ["nb-card", className].filter(Boolean).join(" ");
+const style = accentColor ? `border-color: ${accentColor};` : undefined;
+---
+
+<div class={classes} style={style}>
+  <slot />
+</div>

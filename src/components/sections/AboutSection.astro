@@ -1,0 +1,83 @@
+---
+import { softSkills } from "../../data/navigation";
+---
+
+<section id="about" class="section">
+  <div class="container">
+    <!-- Section header -->
+    <div class="section-header observe">
+      <span class="section-tag">01 — About</span>
+      <h2 class="section-title">No soy un dev<br />más del montón.</h2>
+    </div>
+
+    <div class="about-grid">
+      <!-- Main text card -->
+      <div class="about-main nb-card observe" style="animation-delay:0.1s">
+        <div class="about-main-inner">
+          <div class="about-label">MY APPROACH</div>
+          <p class="about-text">
+            Soy un <strong>AI Engineer junior</strong> con un enfoque diferente:
+            no solo conozco los fundamentos de desarrollo, sino que he construido
+            un flujo de trabajo donde <span class="highlight">la IA es mi co-piloto</span>.
+            Actúo como el arquitecto y orquestador — diseño la solución,
+            defino la estructura, y uso IA para escribir y acelerar el código.
+          </p>
+          <p class="about-text">
+            El resultado: <strong>entrego proyectos complejos</strong> como plataformas
+            de aprendizaje para médicos, ERPs, chatbots y agentes IA — con la
+            velocidad y precisión de alguien con años más de experiencia.
+          </p>
+          <div class="about-pills">
+            <span class="pill">🏗️ Arquitecto de sistemas</span>
+            <span class="pill">🤖 AI Orchestration</span>
+            <span class="pill">⚡ Rapid Delivery</span>
+            <span class="pill">🎯 Problem-solver</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div class="about-right">
+        <!-- Philosophy card -->
+        <div class="philosophy-card nb-card observe" style="animation-delay:0.2s">
+          <div class="philosophy-icon" aria-hidden="true">⚙️</div>
+          <h3>Mi Filosofía</h3>
+          <p>
+            "El mejor engineer no es el que escribe más código,
+            sino el que <strong>diseña mejores sistemas</strong>."
+          </p>
+        </div>
+
+        <!-- Soft skills grid -->
+        <div class="softskills-card nb-card observe" style="animation-delay:0.3s">
+          <div class="softskills-label">Soft Skills</div>
+          <div class="softskills-grid">
+            {softSkills.map((skill) => (
+              <div class="softskill-item">
+                <span class="softskill-icon" aria-hidden="true">{skill.icon}</span>
+                <span class="softskill-label">{skill.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Philosophy banner -->
+    <div class="ai-banner observe" style="animation-delay:0.4s">
+      <div class="ai-banner-inner">
+        <div class="ai-banner-left">
+          <span class="ai-banner-icon" aria-hidden="true">🤖</span>
+          <div>
+            <strong>AI-Augmented Developer</strong>
+            <p>Uso herramientas como Cursor, Claude, GPT-4 y agentes personalizados como parte core de mi flujo de trabajo — no como sustituto, sino como multiplicador de mi capacidad técnica.</p>
+          </div>
+        </div>
+        <div class="ai-banner-badge">
+          <span>10x</span>
+          <small>Output</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

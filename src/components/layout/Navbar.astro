@@ -1,0 +1,48 @@
+---
+import { navLinks } from "../../data/navigation";
+---
+
+<nav id="navbar" aria-label="Navegación principal">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo" aria-label="Inicio">
+      <span class="logo-bracket" aria-hidden="true">[</span>
+      <span class="logo-text">AI_ENG</span>
+      <span class="logo-bracket" aria-hidden="true">]</span>
+    </a>
+    <div class="nav-links" role="list">
+      {navLinks.map((link) =>
+        link.href === "#contact" ? (
+          <a
+            href={link.href}
+            class="nb-btn"
+            style="padding: 10px 20px; font-size: 12px;"
+            role="listitem"
+          >
+            {link.label} &rarr;
+          </a>
+        ) : (
+          <a href={link.href} class="nav-link" role="listitem">
+            {link.label}
+          </a>
+        )
+      )}
+    </div>
+    <button
+      class="hamburger"
+      id="hamburger"
+      aria-label="Abrir menú de navegación"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Menú móvil">
+    {navLinks.map((link) => (
+      <a href={link.href} class="mob-link">
+        {link.href === "#experience" ? "Experience" : link.label}
+      </a>
+    ))}
+  </div>
+</nav>

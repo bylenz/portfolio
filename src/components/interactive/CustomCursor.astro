@@ -1,0 +1,55 @@
+<!--
+  Custom cursor script component.
+  Provides the lerp-following cursor effect and hover scale on interactive elements.
+  Hidden on touch devices via pointer: coarse media query.
+-->
+<script>
+  const isTouch = window.matchMedia("(pointer: coarse)").matches;
+
+  if (!isTouch) {
+    const cursor = document.getElementById("cursor");
+    const follower = document.getElementById("cursor-follower");
+
+    if (cursor && follower) {
+      let mouseX = 0;
+      let mouseY = 0;
+      let followerX = 0;
+      let followerY = 0;
+
+      document.addEventListener("mousemove", (e: MouseEvent) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursor.style.left = mouseX + "px";
+        cursor.style.top = mouseY + "px";
+      });
+
+      function animateFollower(): void {
+        followerX += (mouseX - followerX) * 0.1;
+        followerY += (mouseY - followerY) * 0.1;
+        follower!.style.left = followerX + "px";
+        follower!.style.top = followerY + "px";
+        requestAnimationFrame(animateFollower);
+      }
+      animateFollower();
+
+      // Scale up + color change on interactive elements
+      document
+        .querySelectorAll("a, button, .nb-card, .nb-btn")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursor.style.transform = "translate(-50%, -50%) scale(1.8)";
+            cursor.style.background = "#CAFF33";
+          });
+          el.addEventListener("mouseleave", () => {
+            cursor.style.transform = "translate(-50%, -50%) scale(1)";
+            cursor.style.background = "#FFE135";
+          });
+        });
+    }
+  } else {
+    // Hide cursor elements on touch devices
+    document.getElementById("cursor")?.remove();
+    document.getElementById("cursor-follower")?.remove();
+    document.body.style.cursor = "auto";
+  }
+</script>

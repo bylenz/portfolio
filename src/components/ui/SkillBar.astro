@@ -1,0 +1,30 @@
+---
+interface Props {
+  percentage: number;
+  color: string;
+  name: string;
+  note?: string;
+}
+
+const { percentage, color, name, note } = Astro.props;
+---
+
+<div class="skill-item">
+  <div class="skill-info">
+    <span class="skill-name">{name}</span>
+    {note && <span class="skill-note">{note}</span>}
+  </div>
+  <div class="skill-bar-wrap">
+    <div
+      class="skill-bar"
+      role="progressbar"
+      aria-valuenow={percentage}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-label={`${name}: ${percentage}%`}
+      style={`--w: ${percentage}%; background: ${color};`}
+    >
+    </div>
+    <span class="skill-pct" aria-hidden="true">{percentage}%</span>
+  </div>
+</div>

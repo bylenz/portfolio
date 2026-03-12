@@ -1,0 +1,15 @@
+---
+interface Props {
+  tag: string;
+  class?: string;
+}
+
+const { tag, class: className } = Astro.props;
+
+const classes = ["section-header", className].filter(Boolean).join(" ");
+---
+
+<div class={classes}>
+  <span class="section-tag">{tag}</span>
+  <slot />
+</div>
