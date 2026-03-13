@@ -1534,6 +1534,12 @@ body:hover .cursor {
   flex-shrink: 0;
 }
 
+.exp-right {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+}
+
 /* Junior card */
 .junior-card {
   padding: 28px;
@@ -1916,6 +1922,10 @@ body:hover .cursor {
   .exp-grid,
   .contact-inner {
     grid-template-columns: 1fr;
+  }
+
+  .exp-right {
+    position: static;
   }
 }
 
