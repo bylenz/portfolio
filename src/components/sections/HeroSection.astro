@@ -1,5 +1,6 @@
 ---
-import { heroStats, marqueeItems } from "../../data/navigation";
+import { heroStats, techCards } from "../../data/navigation";
+import TechIcon from "../ui/TechIcon";
 ---
 
 <section id="hero" class="hero">
@@ -104,21 +105,19 @@ import { heroStats, marqueeItems } from "../../data/navigation";
     </div>
   </div>
 
-  <!-- Marquee tech bar -->
-  <div class="tech-marquee" aria-hidden="true">
-    <div class="marquee-track">
-      {/* First set */}
-      {marqueeItems.map((item) => (
-        <span class="marquee-item">
-          <span class="marquee-dot">◆</span> {item.label}
-        </span>
-      ))}
-      {/* Duplicate set for seamless loop */}
-      {marqueeItems.map((item) => (
-        <span class="marquee-item">
-          <span class="marquee-dot">◆</span> {item.label}
-        </span>
-      ))}
+  <!-- Tech cards grid -->
+  <div class="tech-cards-section observe" style="animation-delay: 0.5s">
+    <div class="container">
+      <div class="tech-cards-grid" role="list" aria-label="Tech stack">
+        {techCards.map((card) => (
+          <div class="tech-card nb-card" role="listitem" style={`--card-accent: ${card.color}`}>
+            <span class="tech-card-icon" aria-hidden="true"><TechIcon client:load name={card.icon} size={22} /></span>
+            <span class="tech-card-label">{card.label}</span>
+            <span class="tech-card-category">{card.category}</span>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>
+

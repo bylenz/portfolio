@@ -70,3 +70,10 @@ export interface HeroStat {
 export interface MarqueeItem {
   label: string;
 }
+
+export interface TechCard {
+  icon: string;       // identifier key matching TechIcon component
+  label: string;
+  category: string;
+  color: string;      // CSS custom-property value, used as --card-accent
+}
