@@ -243,7 +243,7 @@ body:hover .cursor {
 
 .nb-card:hover {
   box-shadow: var(--shadow-xl);
-  transform: translate(-3px, -3px);
+  transform: translate(-6px, -6px);
 }
 
 /* ===== Neo-Brutalist Button ===== */
@@ -400,6 +400,11 @@ body:hover .cursor {
 .observe.visible {
   opacity: 1;
   transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.15s ease;
+}
+
+.nb-card.observe.visible {
+  transition: opacity 0.6s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 /* ===== Navbar ===== */
@@ -920,6 +925,12 @@ body:hover .cursor {
   padding: 40px;
   background: var(--black);
   color: var(--white);
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.about-main:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translate(-4px, -4px);
 }
 
 .about-main-inner {
@@ -964,6 +975,12 @@ body:hover .cursor {
 .philosophy-card {
   padding: 28px;
   background: var(--yellow);
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.philosophy-card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translate(-4px, -4px);
 }
 
 .philosophy-icon {
@@ -986,6 +1003,12 @@ body:hover .cursor {
 .softskills-card {
   padding: 28px;
   flex: 1;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.softskills-card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translate(-4px, -4px);
 }
 
 .softskills-label {
@@ -1027,6 +1050,12 @@ body:hover .cursor {
   border: var(--border);
   box-shadow: var(--shadow-lg);
   padding: 28px 36px;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.ai-banner:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translate(-4px, -4px);
 }
 
 .ai-banner-inner {
@@ -1499,6 +1528,12 @@ body:hover .cursor {
   margin-bottom: 20px;
   background: var(--black);
   color: var(--white);
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.junior-card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translate(-4px, -4px);
 }
 
 .junior-header {
@@ -1566,6 +1601,12 @@ body:hover .cursor {
 .learning-card {
   padding: 24px;
   background: var(--white);
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.learning-card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translate(-4px, -4px);
 }
 
 .learning-label {
