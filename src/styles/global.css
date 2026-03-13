@@ -875,6 +875,7 @@ body:hover .cursor {
 .tech-cards-section {
   padding: 0 0 24px;
   border-top: 3px solid var(--black);
+  border-bottom: 3px solid var(--black);
 }
 
 .tech-cards-grid {
