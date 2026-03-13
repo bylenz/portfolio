@@ -1723,6 +1723,11 @@ body:hover .cursor {
   overflow: hidden;
 }
 
+.contact-form-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 .form-header {
   padding: 16px 24px;
   background: var(--yellow);
@@ -1734,6 +1739,7 @@ body:hover .cursor {
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.1em;
+  color: var(--black);
 }
 
 .form-body {
@@ -1770,6 +1776,10 @@ body:hover .cursor {
   resize: none;
 }
 
+.field-input::placeholder {
+  color: rgba(10, 10, 10, 0.45);
+}
+
 .field-input:focus {
   border-color: var(--black);
   box-shadow: 3px 3px 0 var(--yellow);
@@ -1789,6 +1799,7 @@ body:hover .cursor {
   border: 2px solid var(--black);
   cursor: pointer;
   font-size: 13px;
+  color: var(--black);
   transition: background 0.1s;
 }
 
