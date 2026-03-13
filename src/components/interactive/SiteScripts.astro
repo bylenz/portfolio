@@ -44,4 +44,19 @@
       hamburger?.setAttribute("aria-label", "Abrir menú de navegación");
     });
   });
+
+  // JS-based smooth scroll for all internal anchor links (cross-browser)
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
+      const href = anchor.getAttribute("href");
+      if (!href || href === "#") return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth" });
+        // Update URL hash without jumping
+        history.pushState(null, "", href);
+      }
+    });
+  });
 </script>
