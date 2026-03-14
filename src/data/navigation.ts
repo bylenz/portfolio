@@ -17,21 +17,21 @@ export const navLinks: NavLink[] = [
 export const socialLinks: SocialLink[] = [
   {
     label: "Email",
-    href: "mailto:hello@example.com",
+    href: "mailto:[EMAIL_ADDRESS]",
     icon: "📧",
-    value: "hello@example.com",
+    value: "[EMAIL_ADDRESS]",
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/in/lenin-chavez-zapata",
     icon: "💼",
-    value: "/in/yourname",
+    value: "/in/lenin-chavez-zapata",
   },
   {
     label: "GitHub",
-    href: "https://github.com",
+    href: "https://github.com/Hyp3Boy",
     icon: "🐙",
-    value: "/yourhandle",
+    value: "/Hyp3Boy",
   },
 ];
 
