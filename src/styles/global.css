@@ -5,10 +5,10 @@
   /* Colors */
   --color-black: #0a0a0a;
   --color-white: #f5f0e8;
-  --color-yellow: #FFE135;
-  --color-lime: #CAFF33;
-  --color-coral: #FF5733;
-  --color-blue: #3B82F6;
+  --color-yellow: #ffe135;
+  --color-lime: #caff33;
+  --color-coral: #ff5733;
+  --color-blue: #3b82f6;
   --color-purple: #a855f7;
 
   /* Fonts */
@@ -49,7 +49,6 @@
   }
 
   @keyframes pulse-dot {
-
     0%,
     100% {
       opacity: 1;
@@ -67,10 +66,10 @@
 :root {
   --black: #0a0a0a;
   --white: #f5f0e8;
-  --yellow: #FFE135;
-  --lime: #CAFF33;
-  --coral: #FF5733;
-  --blue: #3B82F6;
+  --yellow: #ffe135;
+  --lime: #caff33;
+  --coral: #ff5733;
+  --blue: #3b82f6;
   --purple: #a855f7;
   --border: 3px solid var(--black);
   --shadow: 5px 5px 0px var(--black);
@@ -190,7 +189,9 @@ textarea:focus-visible {
   position: fixed;
   pointer-events: none;
   z-index: 9999;
-  transition: transform 0.1s ease, background 0.2s ease;
+  transition:
+    transform 0.1s ease,
+    background 0.2s ease;
   transform: translate(-50%, -50%);
 }
 
@@ -227,7 +228,9 @@ body:hover .cursor {
   background: var(--white);
   border: var(--border);
   box-shadow: var(--shadow);
-  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
 }
 
 .nb-card:hover {
@@ -249,7 +252,9 @@ body:hover .cursor {
   border: var(--border);
   box-shadow: var(--shadow);
   cursor: pointer;
-  transition: box-shadow 0.1s, transform 0.1s;
+  transition:
+    box-shadow 0.1s,
+    transform 0.1s;
   background: var(--yellow);
   color: var(--black);
 }
@@ -343,11 +348,13 @@ body:hover .cursor {
 }
 
 .stripe-bg {
-  background: repeating-linear-gradient(-45deg,
-      transparent,
-      transparent 10px,
-      rgba(0, 0, 0, 0.03) 10px,
-      rgba(0, 0, 0, 0.03) 20px);
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    rgba(0, 0, 0, 0.03) 10px,
+    rgba(0, 0, 0, 0.03) 20px
+  );
 }
 
 .noise::after {
@@ -383,17 +390,25 @@ body:hover .cursor {
 .observe {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
 }
 
 .observe.visible {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.15s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease,
+    box-shadow 0.15s ease;
 }
 
 .nb-card.observe.visible {
-  transition: opacity 0.6s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 /* ===== Navbar ===== */
@@ -571,7 +586,9 @@ body:hover .cursor {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   opacity: 0.8;
-  transition: opacity 0.2s, color 0.2s;
+  transition:
+    opacity 0.2s,
+    color 0.2s;
 }
 
 .footer-link:hover {
@@ -655,7 +672,6 @@ body:hover .cursor {
 }
 
 @keyframes pulse-dot {
-
   0%,
   100% {
     opacity: 1;
@@ -897,7 +913,9 @@ body:hover .cursor {
   box-shadow: 3px 3px 0 var(--black);
   border-top: 4px solid var(--card-accent, var(--yellow));
   cursor: default;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 
 .tech-card:hover {
@@ -937,7 +955,9 @@ body:hover .cursor {
   padding: 40px;
   background: var(--black);
   color: var(--white);
-  transition: box-shadow 0.15s, transform 0.15s;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
 }
 
 .about-main:hover {
@@ -987,7 +1007,9 @@ body:hover .cursor {
 .philosophy-card {
   padding: 28px;
   background: var(--yellow);
-  transition: box-shadow 0.15s, transform 0.15s;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
 }
 
 .philosophy-card:hover {
@@ -1015,7 +1037,9 @@ body:hover .cursor {
 .softskills-card {
   padding: 28px;
   flex: 1;
-  transition: box-shadow 0.15s, transform 0.15s;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
 }
 
 .softskills-card:hover {
@@ -1062,7 +1086,9 @@ body:hover .cursor {
   border: var(--border);
   box-shadow: var(--shadow-lg);
   padding: 28px 36px;
-  transition: box-shadow 0.15s, transform 0.15s;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
 }
 
 .ai-banner:hover {
@@ -1263,7 +1289,9 @@ body:hover .cursor {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
   cursor: default;
 }
 
@@ -1289,7 +1317,9 @@ body:hover .cursor {
   flex-direction: column;
   background: var(--white);
   overflow: hidden;
-  transition: box-shadow 0.15s, transform 0.15s;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
 }
 
 .project-card:hover {
@@ -1546,7 +1576,9 @@ body:hover .cursor {
   margin-bottom: 20px;
   background: var(--black);
   color: var(--white);
-  transition: box-shadow 0.15s, transform 0.15s;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
 }
 
 .junior-card:hover {
@@ -1598,7 +1630,7 @@ body:hover .cursor {
   align-items: flex-start;
 }
 
-.junior-list li>span:first-child {
+.junior-list li > span:first-child {
   font-size: 22px;
   flex-shrink: 0;
 }
@@ -1619,7 +1651,9 @@ body:hover .cursor {
 .learning-card {
   padding: 24px;
   background: var(--white);
-  transition: box-shadow 0.15s, transform 0.15s;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
 }
 
 .learning-card:hover {
@@ -1724,7 +1758,10 @@ body:hover .cursor {
   background: #111;
   border-color: rgba(245, 240, 232, 0.15);
   box-shadow: none;
-  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.15s;
 }
 
 .contact-link:hover {
@@ -1745,7 +1782,7 @@ body:hover .cursor {
   flex-shrink: 0;
 }
 
-.contact-link>div {
+.contact-link > div {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -1831,7 +1868,9 @@ body:hover .cursor {
   font-size: 15px;
   color: var(--black);
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
   resize: none;
 }
 
@@ -1989,7 +2028,6 @@ body:hover .cursor {
 
 /* ===== Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {

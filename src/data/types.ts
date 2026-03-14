@@ -9,6 +9,9 @@ export interface Project {
   tags: string[];
   accentColor: string;
   featured?: boolean;
+  image?: string;
+  isPrivate?: boolean;
+  url?: string;
   links?: { demo?: string; github?: string };
 }
 
@@ -72,8 +75,8 @@ export interface MarqueeItem {
 }
 
 export interface TechCard {
-  icon: string;       // identifier key matching TechIcon component
+  icon: string; // identifier key matching TechIcon component
   label: string;
   category: string;
-  color: string;      // CSS custom-property value, used as --card-accent
+  color: string; // CSS custom-property value, used as --card-accent
 }

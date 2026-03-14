@@ -28,37 +28,44 @@ import TechIcon from "../ui/TechIcon";
 
         <!-- Description -->
         <p class="hero-desc observe" style="animation-delay: 0.2s">
-          No soy solo un dev — soy el <strong>arquitecto</strong> que orquesta
-          IA para construir más rápido, más inteligente y con más impacto.
-          React · Next.js · LangChain · LangGraph · FastAPI.
+          No soy solo un dev — soy el <strong>arquitecto</strong> que orquesta IA
+          para construir más rápido, más inteligente y con más impacto. React · Next.js
+          · LangChain · LangGraph · FastAPI.
         </p>
 
         <!-- CTA buttons -->
         <div class="hero-cta observe" style="animation-delay: 0.3s">
-          <a href="#projects" class="nb-btn">
-            Ver Proyectos &rarr;
-          </a>
-          <a href="#contact" class="nb-btn nb-btn-outline">
-            Hablemos
-          </a>
+          <a href="#projects" class="nb-btn"> Ver Proyectos &rarr; </a>
+          <a href="#contact" class="nb-btn nb-btn-outline"> Hablemos </a>
         </div>
 
         <!-- Stats row -->
-        <div class="hero-stats observe" style="animation-delay: 0.4s" role="list" aria-label="Estadísticas">
-          {heroStats.map((stat, i) => (
-            <>
-              {i > 0 && <div class="stat-divider" aria-hidden="true"></div>}
-              <div class="stat" role="listitem">
-                <span class="stat-num">{stat.value}</span>
-                <span class="stat-label">{stat.label}</span>
-              </div>
-            </>
-          ))}
+        <div
+          class="hero-stats observe"
+          style="animation-delay: 0.4s"
+          role="list"
+          aria-label="Estadísticas"
+        >
+          {
+            heroStats.map((stat, i) => (
+              <>
+                {i > 0 && <div class="stat-divider" aria-hidden="true" />}
+                <div class="stat" role="listitem">
+                  <span class="stat-num">{stat.value}</span>
+                  <span class="stat-label">{stat.label}</span>
+                </div>
+              </>
+            ))
+          }
         </div>
       </div>
 
       <!-- Right: Visual card -->
-      <div class="hero-visual observe" style="animation-delay: 0.2s" aria-hidden="true">
+      <div
+        class="hero-visual observe"
+        style="animation-delay: 0.2s"
+        aria-hidden="true"
+      >
         <div class="visual-card nb-card">
           <!-- Terminal-style header -->
           <div class="term-header">
@@ -70,7 +77,8 @@ import TechIcon from "../ui/TechIcon";
             <span class="term-title">profile.json</span>
           </div>
           <div class="term-body">
-            <pre class="code-block"><code><span class="c-bracket">{"{"}</span>
+            <pre
+              class="code-block"><code><span class="c-bracket">{"{"}</span>
   <span class="c-key">"name"</span><span class="c-colon">:</span> <span class="c-str">"Junior AI Engineer"</span><span class="c-comma">,</span>
   <span class="c-key">"role"</span><span class="c-colon">:</span> <span class="c-str">"AI Architect & Orchestrator"</span><span class="c-comma">,</span>
   <span class="c-key">"superpower"</span><span class="c-colon">:</span> <span class="c-str">"AI-powered dev flow"</span><span class="c-comma">,</span>
@@ -109,15 +117,22 @@ import TechIcon from "../ui/TechIcon";
   <div class="tech-cards-section observe" style="animation-delay: 0.5s">
     <div class="container">
       <div class="tech-cards-grid" role="list" aria-label="Tech stack">
-        {techCards.map((card) => (
-          <div class="tech-card nb-card" role="listitem" style={`--card-accent: ${card.color}`}>
-            <span class="tech-card-icon" aria-hidden="true"><TechIcon client:load name={card.icon} size={22} /></span>
-            <span class="tech-card-label">{card.label}</span>
-            <span class="tech-card-category">{card.category}</span>
-          </div>
-        ))}
+        {
+          techCards.map((card) => (
+            <div
+              class="tech-card nb-card"
+              role="listitem"
+              style={`--card-accent: ${card.color}`}
+            >
+              <span class="tech-card-icon" aria-hidden="true">
+                <TechIcon client:load name={card.icon} size={22} />
+              </span>
+              <span class="tech-card-label">{card.label}</span>
+              <span class="tech-card-category">{card.category}</span>
+            </div>
+          ))
+        }
       </div>
     </div>
   </div>
 </section>
-

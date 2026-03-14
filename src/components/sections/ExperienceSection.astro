@@ -1,5 +1,5 @@
 ---
-import { experiences, currentlyLearning } from '../../data/experience';
+import { experiences, currentlyLearning } from "../../data/experience";
 ---
 
 <section id="experience" class="section exp-section">
@@ -13,47 +13,55 @@ import { experiences, currentlyLearning } from '../../data/experience';
         </div>
 
         <div class="timeline">
-          {experiences.map((exp, index) => {
-            const isLast = index === experiences.length - 1;
-            const delay = index * 0.15;
+          {
+            experiences.map((exp, index) => {
+              const isLast = index === experiences.length - 1;
+              const delay = index * 0.15;
 
-            return (
-              <div class="timeline-item observe" style={`animation-delay: ${delay}s`}>
-                <div class="timeline-line" aria-hidden="true">
-                  <div
-                    class="timeline-dot"
-                    style={`background: ${exp.color}; border-color: ${exp.color};`}
-                  />
-                  {!isLast && <div class="timeline-connector" />}
-                </div>
-                <div class="timeline-content">
-                  <div class="exp-header">
-                    <div>
-                      <span class="exp-period">{exp.period}</span>
-                      <h3 class="exp-role">{exp.role}</h3>
-                      <span class="exp-company">{exp.company}</span>
-                    </div>
-                    <span class="exp-type" style={`background: ${exp.color};`}>
-                      {exp.type}
-                    </span>
+              return (
+                <div
+                  class="timeline-item observe"
+                  style={`animation-delay: ${delay}s`}
+                >
+                  <div class="timeline-line" aria-hidden="true">
+                    <div
+                      class="timeline-dot"
+                      style={`background: ${exp.color}; border-color: ${exp.color};`}
+                    />
+                    {!isLast && <div class="timeline-connector" />}
                   </div>
-                  <p class="exp-desc">{exp.description}</p>
-                  <ul class="exp-achievements">
-                    {exp.achievements.map((achievement) => (
-                      <li>
-                        <span
-                          class="achievement-bullet"
-                          style={`background: ${exp.color};`}
-                          aria-hidden="true"
-                        />
-                        {achievement}
-                      </li>
-                    ))}
-                  </ul>
+                  <div class="timeline-content">
+                    <div class="exp-header">
+                      <div>
+                        <span class="exp-period">{exp.period}</span>
+                        <h3 class="exp-role">{exp.role}</h3>
+                        <span class="exp-company">{exp.company}</span>
+                      </div>
+                      <span
+                        class="exp-type"
+                        style={`background: ${exp.color};`}
+                      >
+                        {exp.type}
+                      </span>
+                    </div>
+                    <p class="exp-desc">{exp.description}</p>
+                    <ul class="exp-achievements">
+                      {exp.achievements.map((achievement) => (
+                        <li>
+                          <span
+                            class="achievement-bullet"
+                            style={`background: ${exp.color};`}
+                            aria-hidden="true"
+                          />
+                          {achievement}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          }
         </div>
       </div>
 
@@ -99,18 +107,25 @@ import { experiences, currentlyLearning } from '../../data/experience';
         </div>
 
         {/* Learning now */}
-        <div class="learning-card nb-card observe" style="animation-delay: 0.2s">
+        <div
+          class="learning-card nb-card observe"
+          style="animation-delay: 0.2s"
+        >
           <div class="learning-label">
-            <span class="pulse-dot" aria-hidden="true" />
+            <span class="pulse-dot" aria-hidden="true"></span>
             Aprendiendo ahora
           </div>
           <div class="learning-items">
-            {currentlyLearning.map((item) => (
-              <div class="learning-item">
-                <span class="learning-arrow" aria-hidden="true">→</span>
-                <span>{item.label}</span>
-              </div>
-            ))}
+            {
+              currentlyLearning.map((item) => (
+                <div class="learning-item">
+                  <span class="learning-arrow" aria-hidden="true">
+                    →
+                  </span>
+                  <span>{item.label}</span>
+                </div>
+              ))
+            }
           </div>
         </div>
       </div>

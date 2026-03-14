@@ -14,39 +14,41 @@ import SkillBar from "../ui/SkillBar.astro";
 
     <!-- Skills grid -->
     <div class="skills-grid">
-      {skillCategories.map((category, i) => (
-        <div
-          class="skill-cat nb-card observe"
-          style={`animation-delay: ${i * 0.1}s; border-color: ${category.color};`}
-        >
+      {
+        skillCategories.map((category, i) => (
           <div
-            class="skill-cat-header"
-            style={`background: ${category.color}; color: var(--black);`}
+            class="skill-cat nb-card observe"
+            style={`animation-delay: ${i * 0.1}s; border-color: ${category.color};`}
           >
-            <span class="cat-icon" aria-hidden="true">{category.icon}</span>
-            <span class="cat-label">{category.label}</span>
+            <div
+              class="skill-cat-header"
+              style={`background: ${category.color}; color: var(--black);`}
+            >
+              <span class="cat-icon" aria-hidden="true">
+                {category.icon}
+              </span>
+              <span class="cat-label">{category.label}</span>
+            </div>
+            <div class="skill-list">
+              {category.skills.map((skill) => (
+                <SkillBar
+                  name={skill.name}
+                  note={skill.note}
+                  percentage={skill.percentage}
+                  color={category.color}
+                />
+              ))}
+            </div>
           </div>
-          <div class="skill-list">
-            {category.skills.map((skill) => (
-              <SkillBar
-                name={skill.name}
-                note={skill.note}
-                percentage={skill.percentage}
-                color={category.color}
-              />
-            ))}
-          </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
 
     <!-- Tools belt -->
     <div class="tools-belt observe" style="animation-delay: 0.5s">
       <div class="tools-label">Herramientas & Entorno</div>
       <div class="tools-list">
-        {toolsBelt.map((tool) => (
-          <span class="tool-chip">{tool}</span>
-        ))}
+        {toolsBelt.map((tool) => <span class="tool-chip">{tool}</span>)}
       </div>
     </div>
   </div>

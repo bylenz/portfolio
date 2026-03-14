@@ -1,5 +1,5 @@
 ---
-import { footerData, socialLinks } from '../../data/navigation';
+import { footerData, socialLinks } from "../../data/navigation";
 ---
 
 <footer class="footer" role="contentinfo">
@@ -10,17 +10,23 @@ import { footerData, socialLinks } from '../../data/navigation';
         <p>Construyendo el futuro,<br />un agente a la vez.</p>
       </div>
       <nav class="footer-links" aria-label="Redes sociales">
-        {socialLinks.map((link) => (
-          <a
-            href={link.href}
-            target={link.href.startsWith('mailto') ? undefined : '_blank'}
-            rel={link.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-            class="footer-link"
-            aria-label={`${link.label}${link.href.startsWith('mailto') ? '' : ' (abre en nueva pestaña)'}`}
-          >
-            {link.label} ↗
-          </a>
-        ))}
+        {
+          socialLinks.map((link) => (
+            <a
+              href={link.href}
+              target={link.href.startsWith("mailto") ? undefined : "_blank"}
+              rel={
+                link.href.startsWith("mailto")
+                  ? undefined
+                  : "noopener noreferrer"
+              }
+              class="footer-link"
+              aria-label={`${link.label}${link.href.startsWith("mailto") ? "" : " (abre en nueva pestaña)"}`}
+            >
+              {link.label} ↗
+            </a>
+          ))
+        }
       </nav>
       <div class="footer-right">
         <div class="footer-badge" aria-hidden="true">

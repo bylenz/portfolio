@@ -1,6 +1,6 @@
 ---
-import { socialLinks } from '../../data/navigation';
-import ContactForm from '../interactive/ContactForm.astro';
+import { socialLinks } from "../../data/navigation";
+import ContactForm from "../interactive/ContactForm.astro";
 ---
 
 <section id="contact" class="section contact-section">
@@ -17,24 +17,38 @@ import ContactForm from '../interactive/ContactForm.astro';
           necesitas un AI Engineer que piense en sistemas y entregue resultados,
           hablemos.
         </p>
-        <div class="contact-links" role="list" aria-label="Contacto y redes sociales">
-          {socialLinks.map((link) => (
-            <a
-              href={link.href}
-              class="contact-link nb-card"
-              target={link.href.startsWith('mailto') ? undefined : '_blank'}
-              rel={link.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-              role="listitem"
-              aria-label={`${link.label}: ${link.value}${link.href.startsWith('mailto') ? '' : ' (abre en nueva pestaña)'}`}
-            >
-              <span class="contact-link-icon" aria-hidden="true">{link.icon}</span>
-              <div>
-                <span class="contact-link-label">{link.label}</span>
-                <span class="contact-link-value">{link.value}</span>
-              </div>
-              <span class="contact-link-arrow" aria-hidden="true">↗</span>
-            </a>
-          ))}
+        <div
+          class="contact-links"
+          role="list"
+          aria-label="Contacto y redes sociales"
+        >
+          {
+            socialLinks.map((link) => (
+              <a
+                href={link.href}
+                class="contact-link nb-card"
+                target={link.href.startsWith("mailto") ? undefined : "_blank"}
+                rel={
+                  link.href.startsWith("mailto")
+                    ? undefined
+                    : "noopener noreferrer"
+                }
+                role="listitem"
+                aria-label={`${link.label}: ${link.value}${link.href.startsWith("mailto") ? "" : " (abre en nueva pestaña)"}`}
+              >
+                <span class="contact-link-icon" aria-hidden="true">
+                  {link.icon}
+                </span>
+                <div>
+                  <span class="contact-link-label">{link.label}</span>
+                  <span class="contact-link-value">{link.value}</span>
+                </div>
+                <span class="contact-link-arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            ))
+          }
         </div>
       </div>
 

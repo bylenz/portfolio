@@ -43,13 +43,43 @@ export const heroStats: HeroStat[] = [
 
 export const techCards: TechCard[] = [
   { icon: "react", label: "React", category: "Frontend", color: "var(--blue)" },
-  { icon: "nextjs", label: "Next.js", category: "Frontend", color: "var(--black)" },
-  { icon: "nestjs", label: "NestJS", category: "Backend", color: "var(--coral)" },
-  { icon: "fastapi", label: "FastAPI", category: "Backend", color: "var(--lime)" },
-  { icon: "langchain", label: "LangChain", category: "AI / ML", color: "var(--yellow)" },
+  {
+    icon: "nextjs",
+    label: "Next.js",
+    category: "Frontend",
+    color: "var(--black)",
+  },
+  {
+    icon: "nestjs",
+    label: "NestJS",
+    category: "Backend",
+    color: "var(--coral)",
+  },
+  {
+    icon: "fastapi",
+    label: "FastAPI",
+    category: "Backend",
+    color: "var(--lime)",
+  },
+  {
+    icon: "langchain",
+    label: "LangChain",
+    category: "AI / ML",
+    color: "var(--yellow)",
+  },
   { icon: "n8n", label: "n8n", category: "Automation", color: "var(--coral)" },
-  { icon: "typescript", label: "TypeScript", category: "Language", color: "var(--blue)" },
-  { icon: "python", label: "Python", category: "Language", color: "var(--yellow)" },
+  {
+    icon: "typescript",
+    label: "TypeScript",
+    category: "Language",
+    color: "var(--blue)",
+  },
+  {
+    icon: "python",
+    label: "Python",
+    category: "Language",
+    color: "var(--yellow)",
+  },
 ];
 
 export const softSkills: SoftSkill[] = [

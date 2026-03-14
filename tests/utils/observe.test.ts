@@ -3,7 +3,9 @@ import { vi } from "vitest";
 
 describe("initScrollObserver", () => {
   let mockObserve: ReturnType<typeof vi.fn>;
-  let constructorCalls: Array<[IntersectionObserverCallback, IntersectionObserverInit]>;
+  let constructorCalls: Array<
+    [IntersectionObserverCallback, IntersectionObserverInit]
+  >;
 
   beforeEach(() => {
     mockObserve = vi.fn();
@@ -66,7 +68,15 @@ describe("initScrollObserver", () => {
 
     const [callback] = constructorCalls[0];
     const target = document.querySelector(".observe")!;
-    callback([{ isIntersecting: true, target } as unknown as IntersectionObserverEntry], {} as IntersectionObserver);
+    callback(
+      [
+        {
+          isIntersecting: true,
+          target,
+        } as unknown as IntersectionObserverEntry,
+      ],
+      {} as IntersectionObserver,
+    );
 
     expect(target.classList.contains("visible")).toBe(true);
   });
@@ -77,7 +87,15 @@ describe("initScrollObserver", () => {
 
     const [callback] = constructorCalls[0];
     const target = document.querySelector(".observe")!;
-    callback([{ isIntersecting: false, target } as unknown as IntersectionObserverEntry], {} as IntersectionObserver);
+    callback(
+      [
+        {
+          isIntersecting: false,
+          target,
+        } as unknown as IntersectionObserverEntry,
+      ],
+      {} as IntersectionObserver,
+    );
 
     expect(target.classList.contains("visible")).toBe(false);
   });
