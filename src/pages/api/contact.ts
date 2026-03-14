@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { Resend } from "resend";
 
 export const prerender = false;
 
@@ -10,6 +11,9 @@ interface ContactBody {
   subject?: string;
   message?: string;
 }
+
+// Initialize Resend
+const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const POST: APIRoute = async ({ request }) => {
   let body: ContactBody;
@@ -51,12 +55,48 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  // TODO: Integrate Resend for actual email sending
-  // For now, return success placeholder
-  return new Response(JSON.stringify({ success: true }), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+  try {
+    const { data, error } = await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: "lg.chavez1404@gmail.com",
+      subject: `[Portfolio Contact] ${subject} de ${name}`,
+      replyTo: email,
+      html: `
+        <h2>Nuevo mensaje de tu Portafolio</h2>
+        <p><strong>Nombre:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Asunto:</strong> ${subject}</p>
+        <hr />
+        <p><strong>Mensaje:</strong></p>
+        <p>${message?.replace(/\\n/g, "<br/>")}</p>
+      `,
+    });
+
+    if (error) {
+      console.error("Resend API error:", error);
+      return new Response(
+        JSON.stringify({
+          error: "Error sending email",
+          details: [error.message],
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    return new Response(JSON.stringify({ success: true, data }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err) {
+    console.error("Internal server error:", err);
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 };
 
 // Reject non-POST methods
