@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <text x="600" y="280" font-family="monospace" font-size="72" fill="#ffffff" text-anchor="middle" font-weight="bold">LENZ_DEV</text>
+  <text x="600" y="360" font-family="monospace" font-size="28" fill="#00ff88" text-anchor="middle">AI Engineer & Full-Stack Developer</text>
+  <text x="600" y="420" font-family="monospace" font-size="20" fill="#888888" text-anchor="middle">React • Next.js • LangChain • TypeScript</text>
+  <text x="600" y="550" font-family="monospace" font-size="16" fill="#666666" text-anchor="middle">https://bylenz.com</text>
+</svg>

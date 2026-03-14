@@ -141,7 +141,25 @@
 </style>
 
 <script>
+  import * as FingerprintJS from "@fingerprintjs/fingerprintjs";
+
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Device fingerprinting for rate limiting
+  // We load FingerprintJS lazily when user interacts with form
+  let fpPromise: Promise<{ visitorId: string }> | null = null;
+
+  function initFingerprint(): Promise<{ visitorId: string }> {
+    if (!fpPromise) {
+      fpPromise = FingerprintJS.load()
+        .then((fp) => fp.get())
+        .then((result) => ({ visitorId: result.visitorId }))
+        .catch(() => ({
+          visitorId: "fallback-" + Math.random().toString(36).slice(2),
+        }));
+    }
+    return fpPromise;
+  }
 
   interface FormData {
     name: string;
@@ -244,10 +262,16 @@
     if (statusEl) statusEl.style.display = "none";
 
     try {
+      // Get device fingerprint for rate limiting
+      const fp = await initFingerprint();
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          fingerprint: fp.visitorId,
+        }),
       });
 
       const result = await response.json();

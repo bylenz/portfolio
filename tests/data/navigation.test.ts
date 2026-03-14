@@ -2,7 +2,7 @@ import {
   navLinks,
   socialLinks,
   heroStats,
-  marqueeItems,
+  techCards,
   softSkills,
   footerData,
 } from "../../src/data/navigation";
@@ -57,13 +57,13 @@ describe("heroStats data", () => {
   });
 });
 
-describe("marqueeItems data", () => {
+describe("techCards data", () => {
   it("should not be empty", () => {
-    expect(marqueeItems.length).toBeGreaterThan(0);
+    expect(techCards.length).toBeGreaterThan(0);
   });
 
-  it("each item has a label", () => {
-    for (const item of marqueeItems) {
+  it("each item has label", () => {
+    for (const item of techCards) {
       expect(typeof item.label).toBe("string");
       expect(item.label.length).toBeGreaterThan(0);
     }

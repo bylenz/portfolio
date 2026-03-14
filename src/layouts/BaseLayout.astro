@@ -6,12 +6,45 @@ import SiteScripts from "../components/interactive/SiteScripts.astro";
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  article?: boolean;
+  publishedTime?: string;
+  author?: string;
 }
 
 const {
   title,
   description = "AI Engineer — Arquitecto de soluciones potenciadas por IA. React, Next.js, LangChain, LangGraph y más.",
+  image = "/og-image.svg",
+  article = false,
+  publishedTime,
+  author = "Lenin Chavez",
 } = Astro.props;
+
+// Canonical URL
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// JSON-LD Schema for Person/Portfolio
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Lenin Chavez",
+  url: canonicalURL,
+  jobTitle: "AI Engineer & Full-Stack Developer",
+  description: description,
+  sameAs: [
+    "https://github.com/bylenz",
+    "https://www.linkedin.com/in/lenin-chavez-zapata",
+  ],
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "LangChain",
+    "LangGraph",
+    "AI/ML",
+  ],
+};
 ---
 
 <html lang="es">
@@ -23,8 +56,50 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
+
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={author} />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={article ? "article" : "website"} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, canonicalURL)} />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:site_name" content="Lenz Dev Portfolio" />
+    <meta property="og:locale" content="es_AR" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, canonicalURL)} />
+    <meta property="twitter:image:alt" content={title} />
+
+    <!-- Article specific -->
+    {
+      article && publishedTime && (
+        <meta property="article:published_time" content={publishedTime} />
+      )
+    }
+    {article && author && <meta property="article:author" content={author} />}
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="msapplication-TileColor" content="#0a0a0a" />
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
   </head>
   <body>
     <a href="#main-content" class="skip-to-content">Saltar al contenido</a>

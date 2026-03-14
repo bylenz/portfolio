@@ -29,9 +29,9 @@ export const socialLinks: SocialLink[] = [
   },
   {
     label: "GitHub",
-    href: "https://github.com/Hyp3Boy",
+    href: "https://github.com/bylenz",
     icon: "🐙",
-    value: "/Hyp3Boy",
+    value: "/bylenz",
   },
 ];
 
