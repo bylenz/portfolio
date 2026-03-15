@@ -49,6 +49,7 @@
   }
 
   @keyframes pulse-dot {
+
     0%,
     100% {
       opacity: 1;
@@ -113,7 +114,8 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scrollbar-width: auto;
+  scrollbar-color: var(--black) var(--white);
 }
 
 body {
@@ -132,16 +134,21 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--white);
-  border-left: 2px solid var(--black);
+  border-left: none;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--black);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
 }
 
 /* ===== Typography ===== */
@@ -213,10 +220,12 @@ body:hover .cursor {
 }
 
 @media (pointer: coarse) {
+
   .cursor,
   .cursor-follower {
     display: none !important;
   }
+
   * {
     cursor: auto !important;
   }
@@ -358,13 +367,11 @@ body:hover .cursor {
 }
 
 .stripe-bg {
-  background: repeating-linear-gradient(
-    -45deg,
-    transparent,
-    transparent 10px,
-    rgba(0, 0, 0, 0.03) 10px,
-    rgba(0, 0, 0, 0.03) 20px
-  );
+  background: repeating-linear-gradient(-45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.03) 10px,
+      rgba(0, 0, 0, 0.03) 20px);
 }
 
 .noise::after {
@@ -683,6 +690,7 @@ body:hover .cursor {
 }
 
 @keyframes pulse-dot {
+
   0%,
   100% {
     opacity: 1;
@@ -1656,7 +1664,7 @@ body:hover .cursor {
   align-items: flex-start;
 }
 
-.junior-list li > span:first-child {
+.junior-list li>span:first-child {
   font-size: 22px;
   flex-shrink: 0;
 }
@@ -1808,7 +1816,7 @@ body:hover .cursor {
   flex-shrink: 0;
 }
 
-.contact-link > div {
+.contact-link>div {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -2054,6 +2062,7 @@ body:hover .cursor {
 
 /* ===== Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
