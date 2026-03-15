@@ -9,29 +9,19 @@ import type { Project } from "../../data/types";
     aria-modal="true"
     aria-labelledby="modal-title"
   >
-    {/* macOS Window Controls Row */}
+    <!-- macOS Window Controls -->
     <div class="modal-header">
       <div class="mac-controls">
-        <button id="modal-close" class="mac-btn close" aria-label="Close modal"
-        ></button>
+        <button id="modal-close" class="mac-btn close" aria-label="Close modal"></button>
         <button class="mac-btn minimize" aria-hidden="true" disabled></button>
         <button class="mac-btn maximize" aria-hidden="true" disabled></button>
       </div>
       <div class="modal-title-bar" id="modal-title-bar">Proyecto</div>
     </div>
 
-    <div class="modal-content">
-      <div class="modal-image-container">
-        <img
-          id="modal-image"
-          src=""
-          alt="Project Image"
-          class="modal-image"
-          loading="lazy"
-        />
-      </div>
-
+    <div class="modal-content" id="modal-content">
       <div class="modal-body">
+
         <div class="modal-top-info">
           <span id="modal-number" class="project-num"></span>
           <span id="modal-status" class="project-status"></span>
@@ -39,20 +29,24 @@ import type { Project } from "../../data/types";
 
         <h2 id="modal-title" class="project-title"></h2>
         <p id="modal-subtitle" class="project-subtitle"></p>
-        <p id="modal-desc" class="project-desc detail-desc"></p>
+
+        <!-- Carousel -->
+        <div class="carousel-wrapper" id="carousel-wrapper">
+          <div class="carousel-track" id="modal-carousel"></div>
+          <button class="carousel-btn carousel-prev" id="carousel-prev" aria-label="Anterior">&#8249;</button>
+          <button class="carousel-btn carousel-next" id="carousel-next" aria-label="Siguiente">&#8250;</button>
+        </div>
+
+        <p id="modal-desc" class="project-desc"></p>
 
         <div class="modal-section">
           <h3>Logros / Features</h3>
-          <ul id="modal-highlights" class="modal-highlights-list">
-            {/* Populated via JS */}
-          </ul>
+          <ul id="modal-highlights" class="modal-highlights-list"></ul>
         </div>
 
         <div class="modal-section">
           <h3>Tech Stack</h3>
-          <div id="modal-tags" class="project-tags">
-            {/* Populated via JS */}
-          </div>
+          <div id="modal-tags" class="project-tags"></div>
         </div>
 
         <div class="modal-footer">
@@ -66,77 +60,80 @@ import type { Project } from "../../data/types";
             Visitar Proyecto ↗
           </a>
         </div>
+
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  /* Modal Overlay */
+  /* ── Overlay ─────────────────────────────────────────────── */
   .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(
-      245,
-      240,
-      232,
-      0.2
-    ); /* Semi-transparent var(--white) equivalent */
-    backdrop-filter: blur(8px);
-    z-index: 9900; /* Below custom cursor (9999) */
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 9900;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem;
-
-    /* Reveal Animation defaults */
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.35s ease;
-    cursor: none; /* Inherit neo-brutalism custom cursor */
+    transition: opacity 0.3s ease;
+    cursor: none;
   }
 
-  .modal-overlay * {
-    cursor: none; /* Ensure all children also inherit custom cursor */
-  }
+  .modal-overlay * { cursor: none; }
 
   .modal-overlay.active {
     opacity: 1;
     pointer-events: all;
   }
 
-  /* Modal Dialog (Neo-Brutalism & macOS) */
+  /* ── Dialog ──────────────────────────────────────────────── */
   .modal-dialog {
-    background: var(--bg-primary, var(--white));
+    background: var(--bg-primary, #f5f0e8);
     width: 100%;
     max-width: 800px;
     max-height: 90vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    /* FIX: sin overflow:hidden aquí — lo maneja modal-content */
     position: relative;
-
-    /* Initial state for "Genie" effect (sucked into dock) */
     transform-origin: 50% 100%;
     transform: translateY(60vh) scale(0.1);
     opacity: 0;
-    border-radius: 20px; /* Slight curve to simulate warp */
+    border-radius: 20px;
+    /* FIX: quitar box-shadow/border del nb-card en hover — 
+       se hace con specificity alta abajo */
     transition:
       transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2),
       opacity 0.4s ease,
       border-radius 0.5s ease;
   }
 
+  /* FIX: anular cualquier borde/sombra de hover que venga de nb-card */
+  .modal-dialog:hover,
+  .modal-dialog:focus-within {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  /* Mantener el borde neobrutalist estático, sin hover */
+  .modal-dialog {
+    border: 3px solid var(--text-main);
+    box-shadow: 6px 6px 0 var(--text-main);
+  }
+
   .modal-overlay.active .modal-dialog {
     transform: translateY(0) scale(1);
     opacity: 1;
-    border-radius: 0; /* Snaps back to neo-brutalist square edges */
+    border-radius: 0;
   }
 
-  /* Header / macOS bar */
+  /* ── Header ──────────────────────────────────────────────── */
   .modal-header {
     border-bottom: 3px solid var(--text-main);
     padding: 1rem;
@@ -145,161 +142,158 @@ import type { Project } from "../../data/types";
     gap: 1rem;
     background: var(--bg-alt);
     position: relative;
+    flex-shrink: 0;
+    border-radius: inherit;
+    /* Asegurar que el header no tenga hover effects */
   }
 
   @media (min-width: 768px) {
-    .modal-header {
-      padding: 0.75rem 1rem;
-      align-items: center;
-    }
+    .modal-header { padding: 0.75rem 1rem; align-items: center; }
   }
 
-  .mac-controls {
-    display: flex;
-    gap: 0.5rem;
-    z-index: 10;
-    margin-top: 0.1rem;
-  }
-
-  @media (min-width: 768px) {
-    .mac-controls {
-      margin-top: 0;
-    }
-  }
+  .mac-controls { display: flex; gap: 0.5rem; z-index: 10; margin-top: 0.1rem; }
+  @media (min-width: 768px) { .mac-controls { margin-top: 0; } }
 
   .mac-btn {
-    width: 22px;
-    height: 22px;
+    width: 22px; height: 22px;
     border-radius: 50%;
     border: 2px solid var(--text-main);
-    cursor: pointer;
-    padding: 0;
+    cursor: pointer; padding: 0;
     transition: transform 0.2s;
   }
 
-  .mac-btn.minimize,
-  .mac-btn.maximize {
-    display: none;
-  }
+  .mac-btn.minimize, .mac-btn.maximize { display: none; }
 
   @media (min-width: 768px) {
-    .mac-btn {
-      width: 14px;
-      height: 14px;
-    }
-    .mac-btn.minimize,
-    .mac-btn.maximize {
-      display: block;
-    }
+    .mac-btn { width: 14px; height: 14px; }
+    .mac-btn.minimize, .mac-btn.maximize { display: block; }
   }
 
-  .mac-btn:hover:not([disabled]) {
-    transform: scale(1.1);
-  }
-
-  .mac-btn[disabled] {
-    cursor: default;
-    opacity: 0.7;
-  }
-
-  .mac-btn.close {
-    background-color: #ff5f56;
-  }
-  .mac-btn.minimize {
-    background-color: #ffbd2e;
-  }
-  .mac-btn.maximize {
-    background-color: #27c93f;
-  }
+  .mac-btn:hover:not([disabled]) { transform: scale(1.1); }
+  .mac-btn[disabled] { cursor: default; opacity: 0.7; }
+  .mac-btn.close    { background-color: #ff5f56; }
+  .mac-btn.minimize { background-color: #ffbd2e; }
+  .mac-btn.maximize { background-color: #27c93f; }
 
   .modal-title-bar {
-    flex: 1;
-    text-align: center;
-    padding-right: 38px; /* Offset the left controls space */
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    pointer-events: none;
-    line-height: 1.4;
-    word-break: break-word;
+    flex: 1; text-align: center; padding-right: 38px;
+    font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    pointer-events: none; line-height: 1.4; word-break: break-word;
   }
 
   @media (min-width: 768px) {
     .modal-title-bar {
-      position: absolute;
-      left: 0;
-      right: 0;
-      padding-right: 0;
-      text-align: center;
+      position: absolute; left: 0; right: 0;
+      padding-right: 0; text-align: center;
     }
   }
 
-  /* Content area */
+  /* ── Scrollable content ──────────────────────────────────── */
   .modal-content {
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-  }
-
-  @media (min-width: 768px) {
-    .modal-content {
-      flex-direction: row;
-    }
-  }
-
-  .modal-image-container {
-    border-bottom: 3px solid var(--text-main);
-    background: #000;
-    height: 240px;
-    display: flex;
-  }
-
-  @media (min-width: 768px) {
-    .modal-image-container {
-      border-bottom: none;
-      border-right: 3px solid var(--text-main);
-      width: 45%;
-      min-height: auto;
-    }
-  }
-
-  .modal-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+    overflow-x: hidden;
+    flex: 1;
   }
 
   .modal-body {
     padding: 1.5rem;
-    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
   }
 
-  .modal-top-info {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    margin-bottom: -0.5rem;
+  /* ── CAROUSEL ────────────────────────────────────────────── */
+
+  /*
+   * VIEWPORT del carousel.
+   * overflow:hidden recorta el track — clave para mostrar 1 slide.
+   * NO usamos aspect-ratio porque genera espacio negro si las imágenes
+   * no llenan exactamente. Usamos height fija que se ajusta vía JS.
+   */
+  .carousel-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border: 3px solid var(--text-main);
+  background: var(--bg-alt, #e8e3d8);
+  touch-action: pan-y;
+}
+
+.carousel-track {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+  /*
+   * Cada slide: ancho se setea via JS también (= 100% / n del track,
+   * que equivale al 100% del wrapper).
+   * height: 100% para llenar el wrapper exacto.
+   */
+  .carousel-slide {
+    flex-shrink: 0;
+    height: 100%;
+    overflow: hidden;
+    /* width se setea via JS */
   }
 
-  .detail-desc {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 0.5rem;
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
   }
+
+  /* ── Arrows ──────────────────────────────────────────────── */
+  .carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg-primary, #f5f0e8);
+  border: 2px solid var(--text-main);
+  width: 28px; height: 28px;      /* más pequeño en mobile */
+  font-size: 1.2rem; font-weight: 900;
+  cursor: pointer; z-index: 20;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 2px 2px 0 var(--text-main);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  line-height: 1; padding: 0;
+}
+
+.carousel-btn:hover {
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 3px 3px 0 var(--text-main);
+}
+
+@media (min-width: 768px) {
+  .carousel-btn { width: 38px; height: 38px; font-size: 1.8rem; }
+}
+
+.carousel-prev { left: 0.4rem; }
+.carousel-next { right: 0.4rem; }
+.carousel-wrapper.single-image .carousel-btn { display: none; }
+
+  /* ── Text ────────────────────────────────────────────────── */
+  .modal-top-info { display: flex; gap: 1rem; align-items: center; }
+
+  .project-desc { font-size: 1rem; line-height: 1.6; }
 
   .modal-section h3 {
-    font-size: 1.1rem;
-    font-weight: 800;
+    font-size: 1.05rem; font-weight: 800;
     text-transform: uppercase;
     margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    display: flex; align-items: center; gap: 0.5rem;
   }
 
   .modal-section h3::before {
@@ -308,178 +302,216 @@ import type { Project } from "../../data/types";
   }
 
   .modal-highlights-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 0.5rem;
   }
 
   .modal-highlights-list li {
-    display: flex;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-    align-items: flex-start;
+    display: flex; gap: 0.5rem;
+    font-size: 0.95rem; align-items: flex-start;
   }
 
   .modal-highlights-list li::before {
-    content: "✓";
-    font-weight: bold;
-    color: var(--text-main);
+    content: "✓"; font-weight: bold;
+    color: var(--text-main); flex-shrink: 0;
   }
 
+  /* ── Footer ──────────────────────────────────────────────── */
   .modal-footer {
-    margin-top: auto;
-    padding-top: 1.5rem;
+    padding-top: 1.25rem;
     border-top: 3px dashed var(--text-main);
   }
 
   .modal-btn {
-    width: 100%;
-    display: block;
-    text-align: center;
-    font-size: 1rem;
-    padding: 1rem;
+    width: 100%; display: block;
+    text-align: center; font-size: 1rem; padding: 1rem;
   }
 
   .modal-btn.private-repo {
-    background: var(--bg-alt);
-    color: var(--text-main);
-    cursor: not-allowed;
-    opacity: 0.8;
+    background: var(--bg-alt); color: var(--text-main);
+    cursor: not-allowed; opacity: 0.8;
   }
 
   .modal-btn.private-repo:hover {
     transform: none;
-    box-shadow: 4px 4px 0px var(--text-main);
+    box-shadow: 4px 4px 0 var(--text-main);
   }
 </style>
 
 <script>
-  // Project Modal Logic
   document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("project-modal");
-    if (!modal) return;
+    const modal        = document.getElementById("project-modal")!;
+    const modalContent = document.getElementById("modal-content") as HTMLElement;
+    const closeBtn     = document.getElementById("modal-close");
+    const dialog       = modal.querySelector(".modal-dialog") as HTMLElement;
+    const track        = document.getElementById("modal-carousel") as HTMLElement;
+    const prevBtn      = document.getElementById("carousel-prev") as HTMLButtonElement;
+    const nextBtn      = document.getElementById("carousel-next") as HTMLButtonElement;
+    const wrapper      = document.getElementById("carousel-wrapper") as HTMLElement;
 
-    const closeBtn = document.getElementById("modal-close");
-    const dialog = modal.querySelector(".modal-dialog");
-
-    // UI Elements
     const els = {
-      image: document.getElementById("modal-image") as HTMLImageElement,
-      number: document.getElementById("modal-number"),
-      status: document.getElementById("modal-status"),
-      title: document.getElementById("modal-title"),
-      subtitle: document.getElementById("modal-subtitle"),
-      desc: document.getElementById("modal-desc"),
+      number:     document.getElementById("modal-number"),
+      status:     document.getElementById("modal-status"),
+      title:      document.getElementById("modal-title"),
+      subtitle:   document.getElementById("modal-subtitle"),
+      desc:       document.getElementById("modal-desc"),
       highlights: document.getElementById("modal-highlights"),
-      tags: document.getElementById("modal-tags"),
-      actionBtn: document.getElementById(
-        "modal-action-btn",
-      ) as HTMLAnchorElement,
-      titleBar: document.getElementById("modal-title-bar"),
+      tags:       document.getElementById("modal-tags"),
+      actionBtn:  document.getElementById("modal-action-btn") as HTMLAnchorElement,
+      titleBar:   document.getElementById("modal-title-bar"),
     };
 
-    // Close logic
+    // ── Estado carousel ─────────────────────────────────────
+    let current = 0;
+    let total   = 0;
+
+    const goTo = (index: number) => {
+      if (total === 0) return;
+      current = ((index % total) + total) % total;
+      // Cada slide = 100% del wrapper → mover track n * 100%
+      const slideWidth = wrapper.getBoundingClientRect().width;
+track.style.transform = `translateX(-${current * slideWidth}px)`;
+    };
+
+    prevBtn.addEventListener("click", (e) => { e.stopPropagation(); goTo(current - 1); });
+    nextBtn.addEventListener("click", (e) => { e.stopPropagation(); goTo(current + 1); });
+
+    // ── Touch swipe ─────────────────────────────────────────
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isSwiping   = false;
+
+    wrapper.addEventListener("touchstart", (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isSwiping   = false;
+    }, { passive: true });
+
+    wrapper.addEventListener("touchmove", (e) => {
+      const dx = Math.abs(e.touches[0].clientX - touchStartX);
+      const dy = Math.abs(e.touches[0].clientY - touchStartY);
+      if (dx > dy && dx > 8) {
+        isSwiping = true;
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    wrapper.addEventListener("touchend", (e) => {
+      if (!isSwiping) return;
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) diff > 0 ? goTo(current + 1) : goTo(current - 1);
+      isSwiping = false;
+    });
+
+    // ── Teclado ─────────────────────────────────────────────
+    document.addEventListener("keydown", (e) => {
+      if (!modal.classList.contains("active")) return;
+      if (e.key === "Escape")     closeModal();
+      if (e.key === "ArrowLeft")  goTo(current - 1);
+      if (e.key === "ArrowRight") goTo(current + 1);
+    });
+
+    // ── Cerrar ──────────────────────────────────────────────
     const closeModal = () => {
       modal.classList.remove("active");
-      // Reset after animation
-      setTimeout(() => {
-        modal.classList.add("hidden");
-      }, 500); // matches CSS transition time
+      setTimeout(() => modal.classList.add("hidden"), 500);
     };
 
     closeBtn?.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
 
-    // Close on click outside
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
-
-    // Close on Escape key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("active")) {
-        closeModal();
-      }
-    });
-
-    // Listen for open events requested by project cards
-    document.addEventListener("openProjectModal", ((e: CustomEvent | Event) => {
-      const customEvent = e as CustomEvent;
-      const p = customEvent.detail;
+    // ── Abrir ────────────────────────────────────────────────
+    document.addEventListener("openProjectModal", ((e: Event) => {
+      const p = (e as CustomEvent).detail;
       if (!p) return;
 
-      // Populate data
-      if (els.image) {
-        // Fallback placeholder if no image
-        els.image.src =
-          p.image ||
-          "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80";
-        els.image.alt = p.title;
-      }
+      // Reset scroll al inicio
+      modalContent.scrollTop = 0;
 
-      if (els.number) els.number.textContent = p.number;
-      if (els.status) els.status.textContent = p.status;
-      if (els.title) els.title.textContent = p.title;
-      if (els.subtitle) els.subtitle.textContent = p.subtitle;
-      if (els.desc) els.desc.textContent = p.description;
-      if (els.titleBar) els.titleBar.textContent = `[${p.number}] ${p.title}`;
+      // Obtener imágenes — formato: images: ['url1', 'url2']
+      const images: string[] =
+        Array.isArray(p.images) && p.images.length > 0
+          ? p.images
+          : p.image
+          ? [p.image]
+          : ["https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80"];
 
-      // Update accent color variable for the modal dialog
-      if (dialog) {
-        (dialog as HTMLElement).style.setProperty(
-          "--color-accent",
-          p.accentColor || "var(--text-main)",
-        );
-      }
+      total   = images.length;
+      current = 0;
 
-      // Highlights
+      // Reset track sin animación
+      track.style.transition = "none";
+      track.style.transform  = "translateX(0)";
+      track.innerHTML        = "";
+
+      // FIX PRINCIPAL: setear width del track = n * 100%
+      // Así cada slide es exactamente 100% del wrapper (100% / n del track)
+      track.style.width = `${total * 100}%`;
+
+      // Forzar reflow para que el reset de transition no se anime
+      void track.offsetWidth;
+      track.style.transition = "";
+
+      // Construir slides
+      images.forEach((src: string) => {
+        const slide = document.createElement("div");
+        slide.className = "carousel-slide";
+        // FIX: cada slide = 1/n del track = 100% del wrapper
+        slide.style.width = `${100 / total}%`;
+        const img = document.createElement("img");
+        img.src       = src;
+        img.alt       = p.title || "Project image";
+        img.loading   = "lazy";
+        img.draggable = false;
+        slide.appendChild(img);
+        track.appendChild(slide);
+      });
+
+      // Rellenar texto
+      if (els.number)   els.number.textContent   = p.number   ?? "";
+      if (els.status)   els.status.textContent   = p.status   ?? "";
+      if (els.title)    els.title.textContent     = p.title    ?? "";
+      if (els.subtitle) els.subtitle.textContent  = p.subtitle ?? "";
+      if (els.desc)     els.desc.textContent      = p.description ?? "";
+      if (els.titleBar) els.titleBar.textContent  = `[${p.number}] ${p.title}`;
+
+      dialog.style.setProperty("--color-accent", p.accentColor || "var(--text-main)");
+
       if (els.highlights) {
         els.highlights.innerHTML = "";
-        const hlContainer = els.highlights;
-        (p.highlights || []).forEach((h: string) => {
+        (p.highlights ?? []).forEach((h: string) => {
           const li = document.createElement("li");
           li.textContent = h;
-          hlContainer.appendChild(li);
+          els.highlights!.appendChild(li);
         });
       }
 
-      // Tags
       if (els.tags) {
         els.tags.innerHTML = "";
-        const tagsContainer = els.tags;
-        (p.tags || []).forEach((t: string) => {
+        (p.tags ?? []).forEach((t: string) => {
           const span = document.createElement("span");
-          span.className = "project-tag";
+          span.className   = "project-tag";
           span.textContent = t;
-          tagsContainer.appendChild(span);
+          els.tags!.appendChild(span);
         });
       }
 
-      // Action Button
       if (els.actionBtn) {
         if (p.isPrivate) {
           els.actionBtn.textContent = "Proyecto privado";
-          els.actionBtn.href = "#";
-          els.actionBtn.className = "nb-btn nb-btn-dark modal-btn private-repo";
-          els.actionBtn.onclick = (ev) => ev.preventDefault();
+          els.actionBtn.href        = "#";
+          els.actionBtn.className   = "nb-btn nb-btn-dark modal-btn private-repo";
+          els.actionBtn.onclick     = (ev) => ev.preventDefault();
         } else {
           els.actionBtn.textContent = "Visitar Proyecto ↗";
-          els.actionBtn.href = p.url || p.links?.demo || p.links?.github || "#";
-          els.actionBtn.className = "nb-btn nb-btn-dark modal-btn";
-          els.actionBtn.onclick = null;
+          els.actionBtn.href        = p.url || p.links?.demo || p.links?.github || "#";
+          els.actionBtn.className   = "nb-btn nb-btn-dark modal-btn";
+          els.actionBtn.onclick     = null;
         }
       }
 
-      // Show modal
       modal.classList.remove("hidden");
-      // Small delay to allow display block to apply before animating opacity
-      setTimeout(() => {
-        modal.classList.add("active");
-      }, 10);
+      setTimeout(() => modal.classList.add("active"), 10);
     }) as EventListener);
   });
 </script>

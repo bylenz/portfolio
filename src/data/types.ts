@@ -9,7 +9,7 @@ export interface Project {
   tags: string[];
   accentColor: string;
   featured?: boolean;
-  image?: string;
+  images?: string[];
   isPrivate?: boolean;
   url?: string;
   links?: { demo?: string; github?: string };

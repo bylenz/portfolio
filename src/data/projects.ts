@@ -18,8 +18,11 @@ export const projects: Project[] = [
     tags: ["Next.js", "FastAPI", "LlamaIndex", "RAG", "Qdrant"],
     accentColor: "#FFE135",
     featured: true,
-    image:
+    images: [
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+      "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=800&q=80",
+
+    ],
     url: "https://ceam.edu.pe",
   },
   {
@@ -40,8 +43,9 @@ export const projects: Project[] = [
     ],
     tags: ["React", "NestJS", "PostgreSQL", "JWT", "Chakra UI"],
     accentColor: "#CAFF33",
-    image:
+    images: [
       "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=800&q=80",
+    ],
     isPrivate: true,
   },
   {
@@ -59,8 +63,9 @@ export const projects: Project[] = [
     ],
     tags: ["LangGraph", "Python", "FastAPI", "PydanticAI", "Redis"],
     accentColor: "#FF5733",
-    image:
+    images: [
       "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80",
+    ],
     url: "https://github.com/lenz-dev",
   },
   {
@@ -78,8 +83,9 @@ export const projects: Project[] = [
     ],
     tags: ["LangChain", "n8n", "FastAPI", "React", "LlamaIndex"],
     accentColor: "#a855f7",
-    image:
+    images: [
       "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80",
+    ],
     isPrivate: true,
   },
   {
@@ -93,8 +99,9 @@ export const projects: Project[] = [
     highlights: ["Lighthouse 90+", "Copy generado con IA", "A/B testing"],
     tags: ["Next.js", "Astro", "Framer", "TypeScript", "Vercel"],
     accentColor: "#3B82F6",
-    image:
+    images: [
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    ],
     url: "https://lenz.dev",
   },
   {
@@ -112,8 +119,9 @@ export const projects: Project[] = [
     ],
     tags: ["n8n", "Python", "LLMs", "APIs", "Webhooks"],
     accentColor: "#FFE135",
-    image:
+    images: [
       "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+    ],
     isPrivate: true,
   },
 ];
