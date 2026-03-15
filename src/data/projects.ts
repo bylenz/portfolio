@@ -13,8 +13,9 @@ export const projects: Project[] = [
       "RAG sobre papers médicos",
       "Evaluación adaptativa IA",
       "Dashboard de progreso",
+      "Simulación de casos clínicos",
     ],
-    tags: ["Next.js", "FastAPI", "LangChain", "RAG", "PostgreSQL"],
+    tags: ["Next.js", "FastAPI", "LlamaIndex", "RAG", "Qdrant"],
     accentColor: "#FFE135",
     featured: true,
     image:
@@ -33,8 +34,11 @@ export const projects: Project[] = [
       "Gestión de inventario en tiempo real",
       "Módulo de exportaciones",
       "Reportes automatizados",
+      "Módulo de trader",
+      "Trazabilidad de lotes",
+      "Generación de documentos",
     ],
-    tags: ["React", "NestJS", "PostgreSQL", "TypeScript", "Docker"],
+    tags: ["React", "NestJS", "PostgreSQL", "JWT", "Chakra UI"],
     accentColor: "#CAFF33",
     image:
       "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=800&q=80",
