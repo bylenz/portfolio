@@ -139,27 +139,58 @@ import type { Project } from "../../data/types";
   /* Header / macOS bar */
   .modal-header {
     border-bottom: 3px solid var(--text-main);
-    padding: 0.75rem 1rem;
+    padding: 1rem;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    gap: 1rem;
     background: var(--bg-alt);
     position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .modal-header {
+      padding: 0.75rem 1rem;
+      align-items: center;
+    }
   }
 
   .mac-controls {
     display: flex;
     gap: 0.5rem;
     z-index: 10;
+    margin-top: 0.1rem;
+  }
+
+  @media (min-width: 768px) {
+    .mac-controls {
+      margin-top: 0;
+    }
   }
 
   .mac-btn {
-    width: 14px;
-    height: 14px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     border: 2px solid var(--text-main);
     cursor: pointer;
     padding: 0;
     transition: transform 0.2s;
+  }
+
+  .mac-btn.minimize,
+  .mac-btn.maximize {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .mac-btn {
+      width: 14px;
+      height: 14px;
+    }
+    .mac-btn.minimize,
+    .mac-btn.maximize {
+      display: block;
+    }
   }
 
   .mac-btn:hover:not([disabled]) {
@@ -182,15 +213,26 @@ import type { Project } from "../../data/types";
   }
 
   .modal-title-bar {
-    position: absolute;
-    left: 0;
-    right: 0;
+    flex: 1;
     text-align: center;
+    padding-right: 38px; /* Offset the left controls space */
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
     pointer-events: none;
+    line-height: 1.4;
+    word-break: break-word;
+  }
+
+  @media (min-width: 768px) {
+    .modal-title-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      padding-right: 0;
+      text-align: center;
+    }
   }
 
   /* Content area */
@@ -209,7 +251,7 @@ import type { Project } from "../../data/types";
   .modal-image-container {
     border-bottom: 3px solid var(--text-main);
     background: #000;
-    min-height: 200px;
+    height: 240px;
     display: flex;
   }
 
