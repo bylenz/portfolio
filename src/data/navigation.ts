@@ -17,9 +17,9 @@ export const navLinks: NavLink[] = [
 export const socialLinks: SocialLink[] = [
   {
     label: "Email",
-    href: "mailto:[EMAIL_ADDRESS]",
+    href: "#contact",
     icon: "📧",
-    value: "[EMAIL_ADDRESS]",
+    value: "Enviar mensaje",
   },
   {
     label: "LinkedIn",
