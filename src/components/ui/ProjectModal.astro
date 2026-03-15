@@ -112,6 +112,8 @@ import type { Project } from "../../data/types";
       transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2),
       opacity 0.4s ease,
       border-radius 0.5s ease;
+    overflow: hidden;
+    border: 3px solid var(--text-main);
   }
 
   /* FIX: anular cualquier borde/sombra de hover que venga de nb-card */
@@ -194,6 +196,7 @@ import type { Project } from "../../data/types";
     overflow-y: auto;
     overflow-x: hidden;
     flex: 1;
+    background: var(--bg-primary, #f5f0e8);
   }
 
   .modal-body {
@@ -413,9 +416,10 @@ track.style.transform = `translateX(-${current * slideWidth}px)`;
 
     // ── Cerrar ──────────────────────────────────────────────
     const closeModal = () => {
-      modal.classList.remove("active");
-      setTimeout(() => modal.classList.add("hidden"), 500);
-    };
+  modal.classList.remove("active");
+  document.body.style.overflow = ""; // restaurar scroll
+  setTimeout(() => modal.classList.add("hidden"), 500);
+};
 
     closeBtn?.addEventListener("click", closeModal);
     modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
@@ -510,8 +514,9 @@ track.style.transform = `translateX(-${current * slideWidth}px)`;
         }
       }
 
-      modal.classList.remove("hidden");
-      setTimeout(() => modal.classList.add("active"), 10);
+      document.body.style.overflow = "hidden"; // bloquear scroll del fondo
+modal.classList.remove("hidden");
+setTimeout(() => modal.classList.add("active"), 10);
     }) as EventListener);
   });
 </script>
