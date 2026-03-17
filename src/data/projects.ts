@@ -1,5 +1,24 @@
 import type { Project } from "./types";
 
+// Obtenemos todas las imágenes de los proyectos de forma automática
+// Vite/Astro resolverá estas rutas en el build final.
+const projectImages = import.meta.glob<{ default: { src: string } }>(
+  "/src/assets/projects/*.{png,jpg,jpeg,webp}",
+  { eager: true },
+);
+
+// Función para extraer imágenes por el prefijo del proyecto (ej: "grana")
+// Si no encuentra imágenes locales, usa las de fallback (Unsplash u otras)
+const getImages = (prefix: string, fallback: string[] = []): string[] => {
+  const images = Object.keys(projectImages)
+    // Filtra las que contengan el prefijo (ej: /grana-1.png, /grana-2.png)
+    .filter((path) => path.includes(`/${prefix}-`))
+    .sort() // Ordena alfabéticamente para mantener el orden 1, 2, 3...
+    .map((path) => projectImages[path].default.src);
+
+  return images.length > 0 ? images : fallback;
+};
+
 export const projects: Project[] = [
   {
     number: "01",
@@ -18,11 +37,9 @@ export const projects: Project[] = [
     tags: ["Next.js", "FastAPI", "LlamaIndex", "RAG", "Qdrant"],
     accentColor: "#FFE135",
     featured: true,
-    images: [
+    images: getImages("mentor-ceam", [
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
-      "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=800&q=80",
-
-    ],
+    ]),
     url: "https://ceam.edu.pe",
   },
   {
@@ -43,9 +60,9 @@ export const projects: Project[] = [
     ],
     tags: ["React", "NestJS", "PostgreSQL", "JWT", "Chakra UI"],
     accentColor: "#CAFF33",
-    images: [
+    images: getImages("grana", [
       "https://images.unsplash.com/photo-1498804103079-a6351b050096?w=800&q=80",
-    ],
+    ]),
     isPrivate: true,
   },
   {
@@ -63,9 +80,9 @@ export const projects: Project[] = [
     ],
     tags: ["LangGraph", "Python", "FastAPI", "PydanticAI", "Redis"],
     accentColor: "#FF5733",
-    images: [
+    images: getImages("multi-agent", [
       "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80",
-    ],
+    ]),
     url: "https://github.com/lenz-dev",
   },
   {
@@ -83,9 +100,9 @@ export const projects: Project[] = [
     ],
     tags: ["LangChain", "n8n", "FastAPI", "React", "LlamaIndex"],
     accentColor: "#a855f7",
-    images: [
+    images: getImages("chatbot-suite", [
       "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80",
-    ],
+    ]),
     isPrivate: true,
   },
   {
@@ -99,9 +116,9 @@ export const projects: Project[] = [
     highlights: ["Lighthouse 90+", "Copy generado con IA", "A/B testing"],
     tags: ["Next.js", "Astro", "Framer", "TypeScript", "Vercel"],
     accentColor: "#3B82F6",
-    images: [
+    images: getImages("landing-pages", [
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-    ],
+    ]),
     url: "https://lenz.dev",
   },
   {
@@ -119,9 +136,9 @@ export const projects: Project[] = [
     ],
     tags: ["n8n", "Python", "LLMs", "APIs", "Webhooks"],
     accentColor: "#FFE135",
-    images: [
+    images: getImages("n8n-automations", [
       "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
-    ],
+    ]),
     isPrivate: true,
   },
 ];
