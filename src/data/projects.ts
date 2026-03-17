@@ -85,60 +85,60 @@ export const projects: Project[] = [
     ]),
     url: "https://github.com/lenz-dev",
   },
-  {
-    number: "04",
-    status: "Live",
-    emoji: "💬",
-    title: "AI Chatbot Suite",
-    subtitle: "Chatbots personalizados para empresas",
-    description:
-      "Suite de chatbots empresariales con RAG sobre documentación propia, integración con WhatsApp y Slack, escalado a humano y analytics de conversaciones.",
-    highlights: [
-      "RAG sobre docs propios",
-      "WhatsApp + Slack",
-      "Analytics en tiempo real",
-    ],
-    tags: ["LangChain", "n8n", "FastAPI", "React", "LlamaIndex"],
-    accentColor: "#a855f7",
-    images: getImages("chatbot-suite", [
-      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80",
-    ]),
-    isPrivate: true,
-  },
-  {
-    number: "05",
-    status: "Multiple",
-    emoji: "🚀",
-    title: "Landing Pages",
-    subtitle: "Landings de alto impacto con IA",
-    description:
-      "Diseño y desarrollo de landing pages optimizadas para conversión. Generación de copy con IA, A/B testing integrado, animaciones y performance lighthouse 90+.",
-    highlights: ["Lighthouse 90+", "Copy generado con IA", "A/B testing"],
-    tags: ["Next.js", "Astro", "Framer", "TypeScript", "Vercel"],
-    accentColor: "#3B82F6",
-    images: getImages("landing-pages", [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-    ]),
-    url: "https://lenz.dev",
-  },
-  {
-    number: "06",
-    status: "For Clients",
-    emoji: "⚡",
-    title: "N8N Automations",
-    subtitle: "Automatizaciones complejas con n8n",
-    description:
-      "Flujos de automatización empresarial: integración entre CRMs, procesamiento de facturas con OCR + IA, notificaciones inteligentes y pipelines de datos.",
-    highlights: [
-      "OCR + AI processing",
-      "CRM integrations",
-      "Pipeline automatizado",
-    ],
-    tags: ["n8n", "Python", "LLMs", "APIs", "Webhooks"],
-    accentColor: "#FFE135",
-    images: getImages("n8n-automations", [
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
-    ]),
-    isPrivate: true,
-  },
+  // {
+  //   number: "04",
+  //   status: "Live",
+  //   emoji: "💬",
+  //   title: "AI Chatbot Suite",
+  //   subtitle: "Chatbots personalizados para empresas",
+  //   description:
+  //     "Suite de chatbots empresariales con RAG sobre documentación propia, integración con WhatsApp y Slack, escalado a humano y analytics de conversaciones.",
+  //   highlights: [
+  //     "RAG sobre docs propios",
+  //     "WhatsApp + Slack",
+  //     "Analytics en tiempo real",
+  //   ],
+  //   tags: ["LangChain", "n8n", "FastAPI", "React", "LlamaIndex"],
+  //   accentColor: "#a855f7",
+  //   images: getImages("chatbot-suite", [
+  //     "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80",
+  //   ]),
+  //   isPrivate: true,
+  // },
+  // {
+  //   number: "05",
+  //   status: "Multiple",
+  //   emoji: "🚀",
+  //   title: "Landing Pages",
+  //   subtitle: "Landings de alto impacto con IA",
+  //   description:
+  //     "Diseño y desarrollo de landing pages optimizadas para conversión. Generación de copy con IA, A/B testing integrado, animaciones y performance lighthouse 90+.",
+  //   highlights: ["Lighthouse 90+", "Copy generado con IA", "A/B testing"],
+  //   tags: ["Next.js", "Astro", "Framer", "TypeScript", "Vercel"],
+  //   accentColor: "#3B82F6",
+  //   images: getImages("landing-pages", [
+  //     "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+  //   ]),
+  //   url: "https://lenz.dev",
+  // },
+  // {
+  //   number: "06",
+  //   status: "For Clients",
+  //   emoji: "⚡",
+  //   title: "N8N Automations",
+  //   subtitle: "Automatizaciones complejas con n8n",
+  //   description:
+  //     "Flujos de automatización empresarial: integración entre CRMs, procesamiento de facturas con OCR + IA, notificaciones inteligentes y pipelines de datos.",
+  //   highlights: [
+  //     "OCR + AI processing",
+  //     "CRM integrations",
+  //     "Pipeline automatizado",
+  //   ],
+  //   tags: ["n8n", "Python", "LLMs", "APIs", "Webhooks"],
+  //   accentColor: "#FFE135",
+  //   images: getImages("n8n-automations", [
+  //     "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+  //   ]),
+  //   isPrivate: true,
+  // },
 ];

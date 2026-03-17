@@ -225,7 +225,7 @@ import type { Project } from "../../data/types";
   .carousel-wrapper {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    max-height: 60vh;
     height: auto;       
     overflow: hidden;
     border: 3px solid #1a1a1a;
@@ -238,7 +238,7 @@ import type { Project } from "../../data/types";
   }
 
   .carousel-track {
-    position: absolute;
+    position: relative;
     inset: 0;
     width: 100%;   
     height: 100%;
@@ -262,7 +262,7 @@ import type { Project } from "../../data/types";
 
   .carousel-slide img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
   object-position: center center;
   display: block;
@@ -450,7 +450,7 @@ import type { Project } from "../../data/types";
 
       total   = images.length;
       current = 0;
-
+      wrapper.classList.toggle("single-image", total === 1);
       track.style.transition = "none";
       track.style.transform  = "translateX(0)";
       track.innerHTML        = "";
