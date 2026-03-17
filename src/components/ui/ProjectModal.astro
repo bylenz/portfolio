@@ -270,6 +270,29 @@ import type { Project } from "../../data/types";
   min-height: 0;
 }
 
+/* ── Skeleton Loading ────────────────────────────────────────── */
+.carousel-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--bg-alt, #1a1a1a) 0%,
+    #2a2a2a 50%,
+    var(--bg-alt, #1a1a1a) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.carousel-slide {
+  position: relative;
+}
+
   /* ── Arrows ──────────────────────────────────────────────── */
   .carousel-btn {
     position: absolute;
@@ -354,6 +377,32 @@ import type { Project } from "../../data/types";
 </style>
 
 <script>
+  // ── Precargar todas las imágenes de proyectos al inicio ──
+  document.addEventListener("DOMContentLoaded", () => {
+    // Buscar todos los project-modal-trigger y obtener sus imágenes
+    const triggerBtns = document.querySelectorAll(".project-modal-trigger");
+    
+    triggerBtns.forEach((btn) => {
+      const projectDataStr = (btn as HTMLElement).dataset.project;
+      if (projectDataStr) {
+        try {
+          const projectData = JSON.parse(projectDataStr);
+          const images = projectData.images || [];
+          
+          // Precargar cada imagen en background
+          images.forEach((src: string) => {
+            if (src) {
+              const img = new Image();
+              img.src = src;
+            }
+          });
+        } catch (err) {
+          // Silently fail
+        }
+      }
+    });
+  });
+
   document.addEventListener("DOMContentLoaded", () => {
     const modal        = document.getElementById("project-modal")!;
     const modalContent = document.getElementById("modal-content") as HTMLElement;
@@ -463,12 +512,25 @@ import type { Project } from "../../data/types";
         const slide = document.createElement("div");
         slide.className  = "carousel-slide";
         slide.style.width = `${100 / total}%`;
+        
+        // Crear skeleton placeholder
+        const skeleton = document.createElement("div");
+        skeleton.className = "carousel-skeleton";
+        
         const img = document.createElement("img");
         img.src       = src;
         img.alt       = p.title || "Project image";
         img.loading   = "lazy";
         img.decoding  = "async";
         img.draggable = false;
+        img.style.opacity = "0";
+        img.style.transition = "opacity 0.3s ease";
+        
+        // Cuando la imagen carga, quitar el skeleton y mostrar la imagen
+        img.onload = () => {
+          img.style.opacity = "1";
+          skeleton.remove();
+        };
         
         // Agregar srcset para imágenes de Unsplash (optimización responsive)
         if (src.includes("unsplash.com")) {
@@ -481,6 +543,7 @@ import type { Project } from "../../data/types";
           img.sizes = "(max-width: 768px) 100vw, 800px";
         }
         
+        slide.appendChild(skeleton);
         slide.appendChild(img);
         track.appendChild(slide);
       });
