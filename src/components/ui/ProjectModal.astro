@@ -467,7 +467,20 @@ import type { Project } from "../../data/types";
         img.src       = src;
         img.alt       = p.title || "Project image";
         img.loading   = "lazy";
+        img.decoding  = "async";
         img.draggable = false;
+        
+        // Agregar srcset para imágenes de Unsplash (optimización responsive)
+        if (src.includes("unsplash.com")) {
+          const baseUrl = src.split("?")[0];
+          img.srcset = `
+            ${baseUrl}?w=400&q=80 400w,
+            ${baseUrl}?w=800&q=80 800w,
+            ${baseUrl}?w=1200&q=80 1200w
+          `;
+          img.sizes = "(max-width: 768px) 100vw, 800px";
+        }
+        
         slide.appendChild(img);
         track.appendChild(slide);
       });
