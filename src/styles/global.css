@@ -505,6 +505,67 @@ body:hover .cursor {
   width: 100%;
 }
 
+/* Language switch (ES / EN) */
+.lang-switch {
+  display: flex;
+  border: 2px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+}
+
+.lang-opt {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  padding: 6px 10px;
+  background: var(--white);
+  color: var(--black);
+  transition: background 0.15s;
+}
+
+.lang-opt + .lang-opt {
+  border-left: 2px solid var(--black);
+}
+
+.lang-opt:hover {
+  background: var(--lime);
+}
+
+.lang-opt.active {
+  background: var(--yellow);
+}
+
+.mobile-menu .lang-switch {
+  align-self: flex-start;
+  margin-top: 8px;
+  border-color: var(--white);
+  box-shadow: 3px 3px 0 var(--yellow);
+}
+
+.mobile-menu .lang-opt {
+  font-size: 14px;
+  padding: 8px 14px;
+}
+
+.mobile-menu .lang-opt + .lang-opt {
+  border-left-color: var(--white);
+}
+
+.nav-links .nb-btn {
+  white-space: nowrap;
+}
+
+/* Keep the desktop nav on one line before the hamburger kicks in */
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 18px;
+  }
+
+  .nav-link {
+    font-size: 12px;
+  }
+}
+
 /* Hamburger */
 .hamburger {
   display: none;
@@ -718,33 +779,23 @@ body:hover .cursor {
   display: block;
 }
 
+/* Unbounded has overlapping contours, so a plain text-stroke draws lines
+   inside the glyphs. Painting the stroke under the fill hides them. */
 .title-line.accent-yellow {
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--black);
-  position: relative;
+  color: var(--yellow);
+  -webkit-text-stroke: 4px var(--black);
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 var(--black);
   white-space: nowrap;
   letter-spacing: -0.02em;
+  margin-block: 0.04em 0.08em;
 }
 
 @media (min-width: 768px) {
   .title-line.accent-yellow {
-    -webkit-text-stroke: 3px var(--black);
-    letter-spacing: -0.04em;
-  }
-}
-
-.title-line.accent-yellow::after {
-  content: "AI ENG.";
-  position: absolute;
-  left: 0;
-  top: 2px;
-  color: var(--yellow);
-  z-index: -1;
-}
-
-@media (min-width: 768px) {
-  .title-line.accent-yellow::after {
-    top: 4px;
+    -webkit-text-stroke: 7px var(--black);
+    text-shadow: 6px 6px 0 var(--black);
+    letter-spacing: -0.03em;
   }
 }
 

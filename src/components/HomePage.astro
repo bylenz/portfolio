@@ -1,0 +1,34 @@
+---
+// Shared body of the home page, rendered once per locale
+import type { Lang } from "../i18n/ui";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "./layout/Navbar.astro";
+import HeroSection from "./sections/HeroSection.astro";
+import AboutSection from "./sections/AboutSection.astro";
+import SkillsSection from "./sections/SkillsSection.astro";
+import ProjectsSection from "./sections/ProjectsSection.astro";
+import ExperienceSection from "./sections/ExperienceSection.astro";
+import ContactSection from "./sections/ContactSection.astro";
+import Footer from "./layout/Footer.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<BaseLayout lang={lang}>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" id="cursor-follower" aria-hidden="true"></div>
+  <Navbar lang={lang} />
+  <main id="main-content">
+    <HeroSection lang={lang} />
+    <AboutSection lang={lang} />
+    <SkillsSection lang={lang} />
+    <ProjectsSection lang={lang} />
+    <ExperienceSection lang={lang} />
+    <ContactSection lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

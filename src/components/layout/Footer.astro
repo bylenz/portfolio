@@ -1,5 +1,16 @@
 ---
-import { footerData, socialLinks } from "../../data/navigation";
+import { getFooterData, getSocialLinks } from "../../data/navigation";
+import { useTranslations, type Lang } from "../../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const footerData = getFooterData(lang);
+const socialLinks = getSocialLinks(lang);
+const [taglineTop, taglineBottom] = footerData.tagline.split("\n");
 ---
 
 <footer class="footer" role="contentinfo">
@@ -7,21 +18,19 @@ import { footerData, socialLinks } from "../../data/navigation";
     <div class="footer-inner">
       <div class="footer-left">
         <span class="footer-logo" aria-hidden="true">{footerData.logo}</span>
-        <p>Construyendo el futuro,<br />un agente a la vez.</p>
+        <p>{taglineTop}<br />{taglineBottom}</p>
       </div>
-      <nav class="footer-links" aria-label="Redes sociales">
+      <nav class="footer-links" aria-label={t.footer.socialLabel}>
         {
           socialLinks.map((link) => (
             <a
               href={link.href}
-              target={link.href.startsWith("mailto") ? undefined : "_blank"}
+              target={link.href.startsWith("http") ? "_blank" : undefined}
               rel={
-                link.href.startsWith("mailto")
-                  ? undefined
-                  : "noopener noreferrer"
+                link.href.startsWith("http") ? "noopener noreferrer" : undefined
               }
               class="footer-link"
-              aria-label={`${link.label}${link.href.startsWith("mailto") ? "" : " (abre en nueva pestaña)"}`}
+              aria-label={`${link.label}${link.href.startsWith("http") ? ` ${t.newTab}` : ""}`}
             >
               {link.label} ↗
             </a>

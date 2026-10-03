@@ -1,32 +1,48 @@
 import {
-  navLinks,
-  socialLinks,
-  heroStats,
-  techCards,
-  softSkills,
-  footerData,
+  getNavLinks,
+  getSocialLinks,
+  getHeroStats,
+  getTechCards,
+  getSoftSkills,
+  getFooterData,
 } from "../../src/data/navigation";
+import { projectCount } from "../../src/data/projects";
+import type { Lang } from "../../src/i18n/ui";
+
+const langs: Lang[] = ["es", "en"];
 
 describe("navLinks data", () => {
-  it("should have the expected navigation items", () => {
-    const labels = navLinks.map((link) => link.label);
-    expect(labels).toContain("About");
-    expect(labels).toContain("Skills");
-    expect(labels).toContain("Projects");
-    expect(labels).toContain("XP");
-    expect(labels).toContain("Contact");
+  it("has the expected Spanish labels", () => {
+    expect(getNavLinks("es").map((link) => link.label)).toEqual([
+      "Sobre mí",
+      "Skills",
+      "Proyectos",
+      "Experiencia",
+      "Contacto",
+    ]);
   });
 
-  it("each link has label and href", () => {
-    for (const link of navLinks) {
+  it("has the expected English labels", () => {
+    expect(getNavLinks("en").map((link) => link.label)).toEqual([
+      "About",
+      "Skills",
+      "Projects",
+      "Experience",
+      "Contact",
+    ]);
+  });
+
+  it.each(langs)("each link has label and anchor href (%s)", (lang: Lang) => {
+    for (const link of getNavLinks(lang)) {
       expect(typeof link.label).toBe("string");
-      expect(typeof link.href).toBe("string");
       expect(link.href.startsWith("#")).toBe(true);
     }
   });
 });
 
-describe("socialLinks data", () => {
+describe.each(langs)("socialLinks data (%s)", (lang: Lang) => {
+  const socialLinks = getSocialLinks(lang);
+
   it("should have Email, LinkedIn, and GitHub", () => {
     const labels = socialLinks.map((link) => link.label);
     expect(labels).toContain("Email");
@@ -39,38 +55,49 @@ describe("socialLinks data", () => {
       expect(link).toHaveProperty("label");
       expect(link).toHaveProperty("href");
       expect(link).toHaveProperty("icon");
-      expect(link).toHaveProperty("value");
+      expect(typeof link.value).toBe("string");
     }
   });
 });
 
-describe("heroStats data", () => {
+describe.each(langs)("heroStats data (%s)", (lang: Lang) => {
+  const heroStats = getHeroStats(lang);
+
   it("should have 3 items", () => {
     expect(heroStats).toHaveLength(3);
   });
 
   it("each stat has value and label", () => {
     for (const stat of heroStats) {
-      expect(stat).toHaveProperty("value");
-      expect(stat).toHaveProperty("label");
+      expect(typeof stat.value).toBe("string");
+      expect(typeof stat.label).toBe("string");
     }
+  });
+
+  it("derives counts from the data", () => {
+    expect(heroStats[0].value).toBe(String(projectCount));
+    expect(heroStats[1].value).toBe(String(getTechCards(lang).length));
   });
 });
 
-describe("techCards data", () => {
+describe.each(langs)("techCards data (%s)", (lang: Lang) => {
+  const techCards = getTechCards(lang);
+
   it("should not be empty", () => {
     expect(techCards.length).toBeGreaterThan(0);
   });
 
-  it("each item has label", () => {
+  it("each item has label and category", () => {
     for (const item of techCards) {
-      expect(typeof item.label).toBe("string");
       expect(item.label.length).toBeGreaterThan(0);
+      expect(typeof item.category).toBe("string");
     }
   });
 });
 
-describe("softSkills data", () => {
+describe.each(langs)("softSkills data (%s)", (lang: Lang) => {
+  const softSkills = getSoftSkills(lang);
+
   it("should have 6 items", () => {
     expect(softSkills).toHaveLength(6);
   });
@@ -78,24 +105,21 @@ describe("softSkills data", () => {
   it("each soft skill has icon and label", () => {
     for (const skill of softSkills) {
       expect(skill).toHaveProperty("icon");
-      expect(skill).toHaveProperty("label");
       expect(typeof skill.label).toBe("string");
     }
   });
 });
 
-describe("footerData", () => {
-  it("should have required fields", () => {
-    expect(footerData).toHaveProperty("logo");
-    expect(footerData).toHaveProperty("tagline");
-    expect(footerData).toHaveProperty("copyright");
-    expect(footerData).toHaveProperty("builtWith");
-  });
+describe.each(langs)("footerData (%s)", (lang: Lang) => {
+  const footerData = getFooterData(lang);
 
   it("fields are non-empty strings", () => {
     expect(footerData.logo.length).toBeGreaterThan(0);
     expect(footerData.tagline.length).toBeGreaterThan(0);
-    expect(footerData.copyright.length).toBeGreaterThan(0);
     expect(footerData.builtWith.length).toBeGreaterThan(0);
+  });
+
+  it("copyright uses the current year", () => {
+    expect(footerData.copyright).toBe(`©${new Date().getFullYear()}`);
   });
 });

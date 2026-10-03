@@ -1,6 +1,11 @@
-import { projects } from "../../src/data/projects";
+import { getProjects, projectCount } from "../../src/data/projects";
+import type { Lang } from "../../src/i18n/ui";
 
-describe("projects data", () => {
+const langs: Lang[] = ["es", "en"];
+
+describe.each(langs)("projects data (%s)", (lang: Lang) => {
+  const projects = getProjects(lang);
+
   it("should not be empty", () => {
     expect(projects.length).toBeGreaterThan(0);
   });
@@ -11,8 +16,9 @@ describe("projects data", () => {
       expect(project).toHaveProperty("status");
       expect(project).toHaveProperty("emoji");
       expect(project).toHaveProperty("title");
-      expect(project).toHaveProperty("subtitle");
-      expect(project).toHaveProperty("description");
+      expect(typeof project.status).toBe("string");
+      expect(typeof project.subtitle).toBe("string");
+      expect(typeof project.description).toBe("string");
       expect(project).toHaveProperty("highlights");
       expect(project).toHaveProperty("tags");
       expect(project).toHaveProperty("accentColor");
@@ -44,5 +50,28 @@ describe("projects data", () => {
       const expected = String(index + 1).padStart(2, "0");
       expect(project.number).toBe(expected);
     });
+  });
+});
+
+describe("project translations", () => {
+  it("projectCount matches the data", () => {
+    expect(projectCount).toBe(getProjects("es").length);
+  });
+
+  it("non-text fields are shared between locales", () => {
+    const es = getProjects("es");
+    const en = getProjects("en");
+    es.forEach((project, i) => {
+      expect(en[i].title).toBe(project.title);
+      expect(en[i].tags).toEqual(project.tags);
+      expect(en[i].images).toEqual(project.images);
+      expect(en[i].accentColor).toBe(project.accentColor);
+    });
+  });
+
+  it("text fields are actually translated", () => {
+    expect(getProjects("en")[0].description).not.toBe(
+      getProjects("es")[0].description,
+    );
   });
 });

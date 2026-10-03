@@ -1,6 +1,11 @@
-import { skillCategories, toolsBelt } from "../../src/data/skills";
+import { getSkillCategories, toolsBelt } from "../../src/data/skills";
+import type { Lang } from "../../src/i18n/ui";
 
-describe("skillCategories data", () => {
+const langs: Lang[] = ["es", "en"];
+
+describe.each(langs)("skillCategories data (%s)", (lang: Lang) => {
+  const skillCategories = getSkillCategories(lang);
+
   it("should have 4 categories", () => {
     expect(skillCategories).toHaveLength(4);
   });
@@ -19,7 +24,7 @@ describe("skillCategories data", () => {
     for (const category of skillCategories) {
       for (const skill of category.skills) {
         expect(skill).toHaveProperty("name");
-        expect(skill).toHaveProperty("note");
+        expect(typeof skill.note).toBe("string");
         expect(skill).toHaveProperty("percentage");
         expect(typeof skill.percentage).toBe("number");
       }

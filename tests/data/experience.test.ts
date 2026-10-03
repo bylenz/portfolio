@@ -1,6 +1,14 @@
-import { experiences, currentlyLearning } from "../../src/data/experience";
+import {
+  getCurrentlyLearning,
+  getExperiences,
+} from "../../src/data/experience";
+import type { Lang } from "../../src/i18n/ui";
 
-describe("experiences data", () => {
+const langs: Lang[] = ["es", "en"];
+
+describe.each(langs)("experiences data (%s)", (lang: Lang) => {
+  const experiences = getExperiences(lang);
+
   it("should not be empty", () => {
     expect(experiences.length).toBeGreaterThan(0);
   });
@@ -34,7 +42,9 @@ describe("experiences data", () => {
   });
 });
 
-describe("currentlyLearning data", () => {
+describe.each(langs)("currentlyLearning data (%s)", (lang: Lang) => {
+  const currentlyLearning = getCurrentlyLearning(lang);
+
   it("should exist and not be empty", () => {
     expect(currentlyLearning).toBeDefined();
     expect(currentlyLearning.length).toBeGreaterThan(0);
@@ -46,5 +56,17 @@ describe("currentlyLearning data", () => {
       expect(typeof item.label).toBe("string");
       expect(item.label.length).toBeGreaterThan(0);
     }
+  });
+});
+
+describe("experience translations", () => {
+  it("both locales have the same entries and colors", () => {
+    const es = getExperiences("es");
+    const en = getExperiences("en");
+    expect(en).toHaveLength(es.length);
+    es.forEach((exp, i) => {
+      expect(en[i].color).toBe(exp.color);
+      expect(en[i].achievements).toHaveLength(exp.achievements.length);
+    });
   });
 });

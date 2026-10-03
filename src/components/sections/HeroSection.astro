@@ -1,6 +1,16 @@
 ---
-import { heroStats, techCards } from "../../data/navigation";
+import { getHeroStats, getTechCards } from "../../data/navigation";
+import { useTranslations, type Lang } from "../../i18n/ui";
 import TechIcon from "../ui/TechIcon";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const heroStats = getHeroStats(lang);
+const techCards = getTechCards(lang);
 ---
 
 <section id="hero" class="hero">
@@ -14,7 +24,7 @@ import TechIcon from "../ui/TechIcon";
         <!-- Status badge -->
         <div class="status-badge observe" role="status">
           <span class="status-dot" aria-hidden="true"></span>
-          <span>Available for new projects</span>
+          <span>{t.hero.status}</span>
         </div>
 
         <!-- Main headline -->
@@ -27,16 +37,18 @@ import TechIcon from "../ui/TechIcon";
         </div>
 
         <!-- Description -->
-        <p class="hero-desc observe" style="animation-delay: 0.2s">
-          No soy solo un dev — soy el <strong>arquitecto</strong> que orquesta IA
-          para construir más rápido, más inteligente y con más impacto. React · Next.js
-          · LangChain · LangGraph · FastAPI.
-        </p>
+        <p
+          class="hero-desc observe"
+          style="animation-delay: 0.2s"
+          set:html={t.hero.desc}
+        />
 
         <!-- CTA buttons -->
         <div class="hero-cta observe" style="animation-delay: 0.3s">
-          <a href="#projects" class="nb-btn"> Ver Proyectos &rarr; </a>
-          <a href="#contact" class="nb-btn nb-btn-outline"> Hablemos </a>
+          <a href="#projects" class="nb-btn">{t.hero.ctaProjects} &rarr;</a>
+          <a href="#contact" class="nb-btn nb-btn-outline"
+            >{t.hero.ctaContact}</a
+          >
         </div>
 
         <!-- Stats row -->
@@ -44,7 +56,7 @@ import TechIcon from "../ui/TechIcon";
           class="hero-stats observe"
           style="animation-delay: 0.4s"
           role="list"
-          aria-label="Estadísticas"
+          aria-label={t.hero.statsLabel}
         >
           {
             heroStats.map((stat, i) => (
@@ -79,8 +91,7 @@ import TechIcon from "../ui/TechIcon";
           <div class="term-body">
             <pre
               class="code-block"><code><span class="c-bracket">{"{"}</span>
-  <span class="c-key">"name"</span><span class="c-colon">:</span> <span class="c-str">"Junior AI Engineer"</span><span class="c-comma">,</span>
-  <span class="c-key">"role"</span><span class="c-colon">:</span> <span class="c-str">"AI Architect & Orchestrator"</span><span class="c-comma">,</span>
+  <span class="c-key">"role"</span><span class="c-colon">:</span> <span class="c-str">"AI Engineer"</span><span class="c-comma">,</span>
   <span class="c-key">"superpower"</span><span class="c-colon">:</span> <span class="c-str">"AI-powered dev flow"</span><span class="c-comma">,</span>
   <span class="c-key">"frontend"</span><span class="c-colon">:</span> <span class="c-arr">[</span>
     <span class="c-str">"React"</span><span class="c-comma">,</span> <span class="c-str">"Next.js"</span>
@@ -107,7 +118,7 @@ import TechIcon from "../ui/TechIcon";
           <span>⚡ Full-Stack</span>
         </div>
         <div class="float-tag float-tag--3">
-          <span>🏗️ Architect</span>
+          <span>🏗️ {t.hero.floatArchitect}</span>
         </div>
       </div>
     </div>
@@ -116,7 +127,11 @@ import TechIcon from "../ui/TechIcon";
   <!-- Tech cards grid -->
   <div class="tech-cards-section observe" style="animation-delay: 0.5s">
     <div class="container">
-      <div class="tech-cards-grid" role="list" aria-label="Tech stack">
+      <div
+        class="tech-cards-grid"
+        role="list"
+        aria-label={t.hero.techStackLabel}
+      >
         {
           techCards.map((card) => (
             <div
@@ -125,7 +140,7 @@ import TechIcon from "../ui/TechIcon";
               style={`--card-accent: ${card.color}`}
             >
               <span class="tech-card-icon" aria-hidden="true">
-                <TechIcon client:load name={card.icon} size={22} />
+                <TechIcon name={card.icon} size={22} />
               </span>
               <span class="tech-card-label">{card.label}</span>
               <span class="tech-card-category">{card.category}</span>

@@ -1,6 +1,8 @@
 import type { SkillCategory } from "./types";
+import { localize, type Lang } from "../i18n/ui";
 
-export const skillCategories: SkillCategory[] = [
+// Translated notes/labels are { es, en }; tech names are shared.
+const skillCategoriesData = [
   {
     icon: "🎨",
     label: "Frontend",
@@ -8,7 +10,10 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       {
         name: "React",
-        note: "Componentes, hooks, state management",
+        note: {
+          es: "Componentes, hooks, state management",
+          en: "Components, hooks, state management",
+        },
         percentage: 85,
       },
       {
@@ -18,17 +23,20 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "TypeScript",
-        note: "Tipado fuerte, interfaces",
+        note: {
+          es: "Tipado fuerte, interfaces",
+          en: "Strong typing, interfaces",
+        },
         percentage: 78,
       },
       {
         name: "Astro",
-        note: "Static sites, islands",
+        note: { es: "Sitios estáticos, islands", en: "Static sites, islands" },
         percentage: 70,
       },
       {
         name: "Tailwind CSS",
-        note: "Utility-first styling",
+        note: { es: "Estilos utility-first", en: "Utility-first styling" },
         percentage: 82,
       },
     ],
@@ -45,12 +53,15 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "NestJS",
-        note: "Modules, guards, interceptors",
+        note: {
+          es: "Módulos, guards, interceptors",
+          en: "Modules, guards, interceptors",
+        },
         percentage: 75,
       },
       {
         name: "Python",
-        note: "Core language para AI",
+        note: { es: "Lenguaje principal para IA", en: "Core language for AI" },
         percentage: 85,
       },
       {
@@ -60,7 +71,10 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "PostgreSQL",
-        note: "Queries, relaciones, indexes",
+        note: {
+          es: "Queries, relaciones, índices",
+          en: "Queries, relations, indexes",
+        },
         percentage: 70,
       },
     ],
@@ -77,12 +91,18 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "LangGraph",
-        note: "Flujos stateful, multi-agent",
+        note: {
+          es: "Flujos stateful, multi-agent",
+          en: "Stateful flows, multi-agent",
+        },
         percentage: 80,
       },
       {
         name: "LlamaIndex",
-        note: "Data ingestion, indexing",
+        note: {
+          es: "Ingesta e indexación de datos",
+          en: "Data ingestion, indexing",
+        },
         percentage: 75,
       },
       {
@@ -92,19 +112,19 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "Prompt Engineering",
-        note: "Técnicas avanzadas",
+        note: { es: "Técnicas avanzadas", en: "Advanced techniques" },
         percentage: 90,
       },
     ],
   },
   {
     icon: "⚡",
-    label: "Automation",
+    label: { es: "Automatización", en: "Automation" },
     color: "#a855f7",
     skills: [
       {
         name: "n8n",
-        note: "Workflows, integraciones",
+        note: { es: "Workflows, integraciones", en: "Workflows, integrations" },
         percentage: 80,
       },
       {
@@ -124,12 +144,26 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "Git/GitHub",
-        note: "Version control, CI/CD",
+        note: {
+          es: "Control de versiones, CI/CD",
+          en: "Version control, CI/CD",
+        },
         percentage: 80,
       },
     ],
   },
 ];
+
+export function getSkillCategories(lang: Lang): SkillCategory[] {
+  return skillCategoriesData.map((category) => ({
+    ...category,
+    label: localize(category.label, lang),
+    skills: category.skills.map((skill) => ({
+      ...skill,
+      note: localize(skill.note, lang),
+    })),
+  }));
+}
 
 export const toolsBelt: string[] = [
   "Opencode",

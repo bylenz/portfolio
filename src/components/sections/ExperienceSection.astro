@@ -1,5 +1,15 @@
 ---
-import { experiences, currentlyLearning } from "../../data/experience";
+import { getCurrentlyLearning, getExperiences } from "../../data/experience";
+import { useTranslations, type Lang } from "../../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const experiences = getExperiences(lang);
+const currentlyLearning = getCurrentlyLearning(lang);
 ---
 
 <section id="experience" class="section exp-section">
@@ -8,8 +18,8 @@ import { experiences, currentlyLearning } from "../../data/experience";
       {/* Left: Experience timeline */}
       <div class="exp-left">
         <div class="section-header observe">
-          <span class="section-tag">04 — Experience</span>
-          <h2 class="section-title">Mi camino<br />hasta aquí.</h2>
+          <span class="section-tag">{t.experience.tag}</span>
+          <h2 class="section-title" set:html={t.experience.title} />
         </div>
 
         <div class="timeline">
@@ -67,42 +77,25 @@ import { experiences, currentlyLearning } from "../../data/experience";
 
       {/* Right: Value prop + CTA */}
       <div class="exp-right">
-        {/* Junior label card */}
+        {/* Differentiators card */}
         <div class="junior-card nb-card observe">
           <div class="junior-header">
-            <span class="junior-badge">Junior</span>
-            <span class="junior-but">BUT...</span>
+            <span class="junior-badge">{t.experience.cardBadge}</span>
+            <span class="junior-but">{t.experience.cardExtra}</span>
           </div>
-          <h3>Lo que me diferencia</h3>
+          <h3>{t.experience.cardTitle}</h3>
           <ul class="junior-list">
-            <li>
-              <span aria-hidden="true">🏗️</span>
-              <div>
-                <strong>Pensamiento de arquitecto</strong>
-                <p>Diseño sistemas escalables, no solo features</p>
-              </div>
-            </li>
-            <li>
-              <span aria-hidden="true">🤖</span>
-              <div>
-                <strong>AI-augmented workflow</strong>
-                <p>Entrego como senior con flow de IA</p>
-              </div>
-            </li>
-            <li>
-              <span aria-hidden="true">🚀</span>
-              <div>
-                <strong>Proyectos reales en producción</strong>
-                <p>No solo side projects — clientes reales</p>
-              </div>
-            </li>
-            <li>
-              <span aria-hidden="true">📈</span>
-              <div>
-                <strong>Crecimiento acelerado</strong>
-                <p>En 1 año hice lo que otros tardan 3</p>
-              </div>
-            </li>
+            {
+              t.experience.points.map((point) => (
+                <li>
+                  <span aria-hidden="true">{point.icon}</span>
+                  <div>
+                    <strong>{point.title}</strong>
+                    <p>{point.text}</p>
+                  </div>
+                </li>
+              ))
+            }
           </ul>
         </div>
 
@@ -113,7 +106,7 @@ import { experiences, currentlyLearning } from "../../data/experience";
         >
           <div class="learning-label">
             <span class="pulse-dot" aria-hidden="true"></span>
-            Aprendiendo ahora
+            {t.experience.learning}
           </div>
           <div class="learning-items">
             {
