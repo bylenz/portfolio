@@ -23,16 +23,16 @@
   // Hamburger menu toggle
   const hamburger = document.getElementById("hamburger");
   const mobileMenu = document.getElementById("mobile-menu");
+  // Localized aria-labels come from the Navbar markup
+  const labelOpen = hamburger?.dataset.labelOpen ?? "";
+  const labelClose = hamburger?.dataset.labelClose ?? "";
 
   hamburger?.addEventListener("click", () => {
     mobileMenu?.classList.toggle("open");
     hamburger?.classList.toggle("active");
     const isOpen = mobileMenu?.classList.contains("open") ?? false;
     hamburger?.setAttribute("aria-expanded", String(isOpen));
-    hamburger?.setAttribute(
-      "aria-label",
-      isOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación",
-    );
+    hamburger?.setAttribute("aria-label", isOpen ? labelClose : labelOpen);
   });
 
   // Close mobile menu on link click
@@ -41,7 +41,7 @@
       mobileMenu?.classList.remove("open");
       hamburger?.classList.remove("active");
       hamburger?.setAttribute("aria-expanded", "false");
-      hamburger?.setAttribute("aria-label", "Abrir menú de navegación");
+      hamburger?.setAttribute("aria-label", labelOpen);
     });
   });
 

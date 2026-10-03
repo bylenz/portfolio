@@ -1,40 +1,42 @@
 ---
-import { socialLinks } from "../../data/navigation";
+import { getSocialLinks } from "../../data/navigation";
+import { useTranslations, type Lang } from "../../i18n/ui";
 import ContactForm from "../interactive/ContactForm.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const socialLinks = getSocialLinks(lang);
 ---
 
 <section id="contact" class="section contact-section">
   <div class="container">
     <div class="contact-inner">
       <div class="contact-left observe">
-        <span class="section-tag">05 — Contact</span>
-        <h2 class="contact-title">
-          ¿Tienes un proyecto<br />
-          <span class="contact-accent">potenciado por IA?</span>
-        </h2>
-        <p class="contact-desc">
-          Estoy buscando nuevas oportunidades y proyectos desafiantes. Si
-          necesitas un AI Engineer que piense en sistemas y entregue resultados,
-          hablemos.
-        </p>
+        <span class="section-tag">{t.contact.tag}</span>
+        <h2 class="contact-title" set:html={t.contact.title} />
+        <p class="contact-desc">{t.contact.desc}</p>
         <div
           class="contact-links"
           role="list"
-          aria-label="Contacto y redes sociales"
+          aria-label={t.contact.linksLabel}
         >
           {
             socialLinks.map((link) => (
               <a
                 href={link.href}
                 class="contact-link nb-card"
-                target={link.href.startsWith("mailto") ? undefined : "_blank"}
+                target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={
-                  link.href.startsWith("mailto")
-                    ? undefined
-                    : "noopener noreferrer"
+                  link.href.startsWith("http")
+                    ? "noopener noreferrer"
+                    : undefined
                 }
                 role="listitem"
-                aria-label={`${link.label}: ${link.value}${link.href.startsWith("mailto") ? "" : " (abre en nueva pestaña)"}`}
+                aria-label={`${link.label}: ${link.value}${link.href.startsWith("http") ? ` ${t.newTab}` : ""}`}
               >
                 <span class="contact-link-icon" aria-hidden="true">
                   {link.icon}
@@ -54,7 +56,7 @@ import ContactForm from "../interactive/ContactForm.astro";
 
       {/* Contact form */}
       <div class="contact-right observe" style="animation-delay: 0.2s">
-        <ContactForm />
+        <ContactForm lang={lang} />
       </div>
     </div>
   </div>

@@ -1,15 +1,22 @@
 ---
-import { projects } from "../../data/projects";
+import { getProjects } from "../../data/projects";
+import { useTranslations, type Lang } from "../../i18n/ui";
 import ProjectModal from "../ui/ProjectModal.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const projects = getProjects(lang);
 ---
 
 <section id="projects" class="section">
   <div class="container">
     <div class="section-header observe">
-      <span class="section-tag">03 — Projects</span>
-      <h2 class="section-title">
-        Lo que he<br /><span style="color: var(--coral)">construido.</span>
-      </h2>
+      <span class="section-tag">{t.projects.tag}</span>
+      <h2 class="section-title" set:html={t.projects.title} />
     </div>
 
     <div class="projects-grid">
@@ -64,7 +71,7 @@ import ProjectModal from "../ui/ProjectModal.astro";
                   style="font-size: 12px; padding: 10px 20px;"
                   data-project={JSON.stringify(project)}
                 >
-                  Ver Proyecto →
+                  {t.projects.view}
                 </button>
               </div>
             </article>
@@ -75,12 +82,12 @@ import ProjectModal from "../ui/ProjectModal.astro";
 
     {/* CTA */}
     <div class="projects-cta observe">
-      <p>¿Tienes un proyecto en mente?</p>
-      <a href="#contact" class="nb-btn nb-btn-dark">Hablemos →</a>
+      <p>{t.projects.ctaText}</p>
+      <a href="#contact" class="nb-btn nb-btn-dark">{t.projects.ctaButton}</a>
     </div>
   </div>
 
-  <ProjectModal />
+  <ProjectModal lang={lang} />
 </section>
 
 <script>

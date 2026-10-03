@@ -1,8 +1,22 @@
 ---
-import type { Project } from "../../data/types";
+import { useTranslations, type Lang } from "../../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
-<div id="project-modal" class="modal-overlay hidden" aria-hidden="true">
+<div
+  id="project-modal"
+  class="modal-overlay hidden"
+  aria-hidden="true"
+  data-label-visit={t.modal.visit}
+  data-label-private={t.modal.private}
+  data-label-image={t.modal.imageAlt}
+>
   <div
     class="modal-dialog nb-card"
     role="dialog"
@@ -12,11 +26,11 @@ import type { Project } from "../../data/types";
     <!-- macOS Window Controls -->
     <div class="modal-header">
       <div class="mac-controls">
-        <button id="modal-close" class="mac-btn close" aria-label="Close modal"></button>
+        <button id="modal-close" class="mac-btn close" aria-label={t.modal.close}></button>
         <button class="mac-btn minimize" aria-hidden="true" disabled></button>
         <button class="mac-btn maximize" aria-hidden="true" disabled></button>
       </div>
-      <div class="modal-title-bar" id="modal-title-bar">Proyecto</div>
+      <div class="modal-title-bar" id="modal-title-bar">{t.modal.windowTitle}</div>
     </div>
 
     <div class="modal-content" id="modal-content">
@@ -33,19 +47,19 @@ import type { Project } from "../../data/types";
         <!-- Carousel -->
         <div class="carousel-wrapper" id="carousel-wrapper">
           <div class="carousel-track" id="modal-carousel"></div>
-          <button class="carousel-btn carousel-prev" id="carousel-prev" aria-label="Anterior">&#8249;</button>
-          <button class="carousel-btn carousel-next" id="carousel-next" aria-label="Siguiente">&#8250;</button>
+          <button class="carousel-btn carousel-prev" id="carousel-prev" aria-label={t.modal.prev}>&#8249;</button>
+          <button class="carousel-btn carousel-next" id="carousel-next" aria-label={t.modal.next}>&#8250;</button>
         </div>
 
         <p id="modal-desc" class="project-desc"></p>
 
         <div class="modal-section">
-          <h3>Logros / Features</h3>
+          <h3>{t.modal.features}</h3>
           <ul id="modal-highlights" class="modal-highlights-list"></ul>
         </div>
 
         <div class="modal-section">
-          <h3>Tech Stack</h3>
+          <h3>{t.modal.techStack}</h3>
           <div id="modal-tags" class="project-tags"></div>
         </div>
 
@@ -57,7 +71,7 @@ import type { Project } from "../../data/types";
             rel="noopener noreferrer"
             class="nb-btn nb-btn-dark modal-btn"
           >
-            Visitar Proyecto ↗
+            {t.modal.visit}
           </a>
         </div>
 
@@ -396,7 +410,7 @@ import type { Project } from "../../data/types";
               img.src = src;
             }
           });
-        } catch (err) {
+        } catch {
           // Silently fail
         }
       }
@@ -405,6 +419,12 @@ import type { Project } from "../../data/types";
 
   document.addEventListener("DOMContentLoaded", () => {
     const modal        = document.getElementById("project-modal")!;
+    // Localized labels are rendered as data-attributes on the overlay
+    const labels = {
+      visit:   modal.dataset.labelVisit ?? "",
+      private: modal.dataset.labelPrivate ?? "",
+      image:   modal.dataset.labelImage ?? "",
+    };
     const modalContent = document.getElementById("modal-content") as HTMLElement;
     const closeBtn     = document.getElementById("modal-close");
     const dialog       = modal.querySelector(".modal-dialog") as HTMLElement;
@@ -519,7 +539,7 @@ import type { Project } from "../../data/types";
         
         const img = document.createElement("img");
         img.src       = src;
-        img.alt       = p.title || "Project image";
+        img.alt       = `${labels.image}: ${p.title ?? ""}`;
         img.loading   = "lazy";
         img.decoding  = "async";
         img.draggable = false;
@@ -578,12 +598,12 @@ import type { Project } from "../../data/types";
 
       if (els.actionBtn) {
         if (p.isPrivate) {
-          els.actionBtn.textContent = "Proyecto privado";
+          els.actionBtn.textContent = labels.private;
           els.actionBtn.href        = "#";
           els.actionBtn.className   = "nb-btn nb-btn-dark modal-btn private-repo";
           els.actionBtn.onclick     = (ev) => ev.preventDefault();
         } else {
-          els.actionBtn.textContent = "Visitar Proyecto ↗";
+          els.actionBtn.textContent = labels.visit;
           els.actionBtn.href        = p.url || p.links?.demo || p.links?.github || "#";
           els.actionBtn.className   = "nb-btn nb-btn-dark modal-btn";
           els.actionBtn.onclick     = null;

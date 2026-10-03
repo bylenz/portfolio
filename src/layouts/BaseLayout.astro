@@ -3,52 +3,72 @@ import "../styles/global.css";
 import CustomCursor from "../components/interactive/CustomCursor.astro";
 import SiteScripts from "../components/interactive/SiteScripts.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import { defaultLang, homePath, useTranslations, type Lang } from "../i18n/ui";
+
+const langs = Object.keys(homePath) as Lang[];
 
 interface Props {
-  title: string;
+  lang: Lang;
+  title?: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
   article?: boolean;
   publishedTime?: string;
   author?: string;
 }
 
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 const {
-  title,
-  description = "AI Engineer — Arquitecto de soluciones potenciadas por IA. React, Next.js, LangChain, LangGraph y más.",
-  image = "/og-image.svg",
+  title = t.meta.title,
+  description = t.meta.description,
+  image = "/og-image.png",
+  imageAlt = t.meta.ogImageAlt,
   article = false,
   publishedTime,
   author = "Lenin Chavez",
 } = Astro.props;
 
-// Canonical URL
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogLocales: Record<Lang, string> = { es: "es_PE", en: "en_US" };
+
+// Canonical URL per locale, plus alternates for hreflang
+const canonicalURL = new URL(homePath[lang], Astro.site);
+const alternates = langs.map((l) => ({
+  lang: l,
+  href: new URL(homePath[l], Astro.site).href,
+}));
+const imageURL = new URL(image, Astro.site);
 
 // JSON-LD Schema for Person/Portfolio
 const schemaData = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Lenin Chavez",
+  alternateName: "Lenz",
   url: canonicalURL,
-  jobTitle: "AI Engineer & Full-Stack Developer",
+  image: imageURL,
+  jobTitle: "AI Engineer",
   description: description,
   sameAs: [
     "https://github.com/bylenz",
     "https://www.linkedin.com/in/lenin-chavez-zapata",
   ],
   knowsAbout: [
+    "RAG",
+    "LLMs",
+    "LangChain",
+    "LangGraph",
     "React",
     "Next.js",
     "TypeScript",
-    "LangChain",
-    "LangGraph",
-    "AI/ML",
+    "FastAPI",
+    "Python",
   ],
 };
 ---
 
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -68,24 +88,43 @@ const schemaData = {
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
+    {
+      alternates.map((alt) => (
+        <link rel="alternate" hreflang={alt.lang} href={alt.href} />
+      ))
+    }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(homePath[defaultLang], Astro.site)}
+    />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={article ? "article" : "website"} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, canonicalURL)} />
-    <meta property="og:image:alt" content={title} />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta property="og:site_name" content="Lenz Dev Portfolio" />
-    <meta property="og:locale" content="es_AR" />
+    <meta property="og:locale" content={ogLocales[lang]} />
+    {
+      langs
+        .filter((l) => l !== lang)
+        .map((l) => (
+          <meta property="og:locale:alternate" content={ogLocales[l]} />
+        ))
+    }
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image, canonicalURL)} />
-    <meta property="twitter:image:alt" content={title} />
+    <meta property="twitter:image" content={imageURL} />
+    <meta property="twitter:image:alt" content={imageAlt} />
 
     <!-- Article specific -->
     {
@@ -103,7 +142,7 @@ const schemaData = {
     <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
   </head>
   <body>
-    <a href="#main-content" class="skip-to-content">Saltar al contenido</a>
+    <a href="#main-content" class="skip-to-content">{t.meta.skipToContent}</a>
     <slot />
     <CustomCursor />
     <SiteScripts />

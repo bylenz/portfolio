@@ -1,15 +1,25 @@
 ---
-import { skillCategories, toolsBelt } from "../../data/skills";
+import { getSkillCategories, toolsBelt } from "../../data/skills";
+import { useTranslations, type Lang } from "../../i18n/ui";
 import SkillBar from "../ui/SkillBar.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const skillCategories = getSkillCategories(lang);
 ---
 
 <section id="skills" class="section" style="background: var(--black);">
   <div class="container">
     <div class="section-header observe">
-      <span class="section-tag section-tag--light">02 — Skills</span>
-      <h2 class="section-title section-title--light">
-        Mi Arsenal<br /><span class="accent-coral">Técnico.</span>
-      </h2>
+      <span class="section-tag section-tag--light">{t.skills.tag}</span>
+      <h2
+        class="section-title section-title--light"
+        set:html={t.skills.title}
+      />
     </div>
 
     <!-- Skills grid -->
@@ -46,7 +56,7 @@ import SkillBar from "../ui/SkillBar.astro";
 
     <!-- Tools belt -->
     <div class="tools-belt observe" style="animation-delay: 0.5s">
-      <div class="tools-label">Herramientas & Entorno</div>
+      <div class="tools-label">{t.skills.tools}</div>
       <div class="tools-list">
         {toolsBelt.map((tool) => <span class="tool-chip">{tool}</span>)}
       </div>

@@ -1,3 +1,7 @@
+// Resolved (single-locale) shapes consumed by components.
+// Raw data in src/data/*.ts stores translated text as `Localized` values
+// and the `get*(lang)` helpers resolve them into these types.
+
 export interface Project {
   number: string;
   status: string;
@@ -38,12 +42,6 @@ export interface Experience {
   achievements: string[];
 }
 
-export interface Certification {
-  name: string;
-  issuer: string;
-  year: string;
-}
-
 export interface LearningItem {
   label: string;
 }
@@ -70,8 +68,11 @@ export interface HeroStat {
   label: string;
 }
 
-export interface MarqueeItem {
-  label: string;
+export interface FooterData {
+  logo: string;
+  tagline: string;
+  copyright: string;
+  builtWith: string;
 }
 
 export interface TechCard {

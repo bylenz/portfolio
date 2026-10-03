@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://bylenz.com/sitemap-index.xml
+Sitemap: https://www.bylenz.com/sitemap-index.xml
 
 # Disallow API routes
 Disallow: /api/
